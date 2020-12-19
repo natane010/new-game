@@ -1895,10 +1895,6 @@ GameObject:
   - component: {fileID: 3850882234157513279}
   - component: {fileID: 3673720688066777612}
   - component: {fileID: 3673720688066777603}
-  - component: {fileID: 3673720688066777613}
-  - component: {fileID: 3673720688066777615}
-  - component: {fileID: 3673720688066777614}
-  - component: {fileID: 3673720688066777609}
   - component: {fileID: 3673720688066777602}
   m_Layer: 8
   m_Name: REX
@@ -1994,62 +1990,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.2685852, y: 5.15637, z: 2.834797}
   m_Center: {x: 0.037654877, y: 2.6562366, z: -0.009305954}
---- !u!138 &3673720688066777613
-FixedJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4484112234064273541}
-  m_ConnectedBody: {fileID: 3673720686335440540}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_EnableCollision: 0
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
---- !u!138 &3673720688066777615
-FixedJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4484112234064273541}
-  m_ConnectedBody: {fileID: 3673720686369390162}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_EnableCollision: 0
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
---- !u!138 &3673720688066777614
-FixedJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4484112234064273541}
-  m_ConnectedBody: {fileID: 3673720687153180816}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_EnableCollision: 0
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
---- !u!138 &3673720688066777609
-FixedJoint:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4484112234064273541}
-  m_ConnectedBody: {fileID: 3673720686663451489}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_EnableCollision: 0
-  m_EnablePreprocessing: 1
-  m_MassScale: 1
-  m_ConnectedMassScale: 1
 --- !u!114 &3673720688066777602
 MonoBehaviour:
   m_ObjectHideFlags: 0

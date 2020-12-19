@@ -29,4 +29,14 @@ public class Enemy : MonoBehaviour
     {
         
     }
+
+    private void FixedUpdate()
+    {
+        
+    }
+
+    void Move()
+    {
+
+    }
 }
