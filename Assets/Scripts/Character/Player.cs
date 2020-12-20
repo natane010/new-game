@@ -11,14 +11,12 @@ public class Player : MonoBehaviour
     [SerializeField]
     public float jumpPow;
     [SerializeField]
-    public float rotateSpeed;
+    public float targetRotateSpeed;
 
-    private float x;
-    private float z;
+    private float horizontalx;
+    private float verticalz;
 
-    private float gravityAcceleration;
-
-    private float gravity;
+    private Vector3 moveForward;
 
     private bool isGround;
 
@@ -30,75 +28,73 @@ public class Player : MonoBehaviour
     void Start()
     {
         playerpos = GetComponent<Transform>().position;
-        gravity = 0;
-        gravityAcceleration = 0.98f;
         isGround = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        x = Input.GetAxis("Horizontal");
-        z = Input.GetAxis("Vertical");
+        horizontalx = Input.GetAxis("Horizontal");
+        verticalz = Input.GetAxis("Vertical");
 
-        if (!isGround)
-        {
-            //gravity -= gravityAcceleration;
-            //rb1.velocity = new Vector3(0, gravity, 0);
-        }
-        else if (isGround)
-        {
-            gravity = 0;
-        }
+        //if (!isGround)
+        //{
+        //    //gravity -= gravityAcceleration;
+        //    //rb1.velocity = new Vector3(0, gravity, 0);
+        //}
+        //else if (isGround)
+        //{
+        //    gravity = 0;
+        //}
 
 
     }
 
     private void FixedUpdate()
     {
-        if (isGround)
-        {
-            Vector3 cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
+        Vector3 cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
 
-            Vector3 moveForward = cameraForward * z + Camera.main.transform.right * x;
+        moveForward = cameraForward * verticalz + Camera.main.transform.right * horizontalx;
 
-            Debug.Log(rb1.velocity);
-            Vector3 nextPos = rb1.position + moveForward * moveSpeed;
+        //Debug.Log(rb1.velocity);
+        ////Vector3 nextPos = rb1.position + moveForward * moveSpeed;
+        //rb1.velocity = moveForward * moveSpeed + new Vector3(0, rb1.velocity.y, 0);
+        ////瞬間移動するから対策 raycast で下を見る
+        //RaycastHit hit;
+        //Ray ray = new Ray(nextPos, Vector3.down);
+        //if(Physics.Raycast(ray, out hit, 1.0f, LayerMask.GetMask("Field")))
+        //{
+        //    nextPos = hit.point;
+        //}
+        //rb1.position = nextPos;
 
+        rb1.AddForce(new Vector3(horizontalx, 0, verticalz) + moveSpeed * moveForward * 2, ForceMode.Impulse);
 
-            //瞬間移動するから対策
-
-            RaycastHit hit;
-            Ray ray = new Ray(nextPos, Vector3.down);
-            if(Physics.Raycast(ray, out hit, 1.0f, LayerMask.GetMask("Field")))
-            {
-                nextPos = hit.point;
-            }
-
-            rb1.position = nextPos;
-
-            if (moveForward != Vector3.zero)
-            {
-                transform.rotation = Quaternion.LookRotation(moveForward);
-            }
-        }
+        //if (moveForward != Vector3.zero)
+        //{
+        //    Quaternion targetRotation = Quaternion.LookRotation(moveForward - transform.position);
+        //    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime);
+        //}
         Debug.Log(isGround);
+
+        
+
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Field")
-        {
-            //rb1.velocity = Vector3.zero;
-            isGround = true;
-        }
-    }
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.gameObject.tag == "Field")
+    //    {
+    //        rb1.velocity = Vector3.zero;
+    //        isGround = true;
+    //    }
+    //}
 
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.tag == "Field")
-        {
-            isGround = false;
-        }
-    }
+    //private void OnCollisionExit(Collision collision)
+    //{
+    //    if (collision.gameObject.tag == "Field")
+    //    {
+    //        isGround = false;
+    //    }
+    //}
 }

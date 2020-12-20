@@ -9,8 +9,8 @@ public class PlayerCamera : MonoBehaviour
 
     private Vector3 playerPos;
 
-    float mouseInputX;
-    float mouseInputY;
+    float keyInputX;
+    float keyInputY;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +21,7 @@ public class PlayerCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private void FixedUpdate()
@@ -29,14 +29,17 @@ public class PlayerCamera : MonoBehaviour
         transform.position += player.transform.position - playerPos;
         playerPos = player.transform.position;
 
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButton(0))
         {
-            mouseInputX = Input.GetAxis("Mouse X");
-            mouseInputY = Input.GetAxis("Mouse Y");
+            keyInputX = Input.GetAxis("Mouse X");
+            keyInputY = Input.GetAxis("Mouse Y");
 
-            transform.RotateAround(playerPos, Vector3.up, mouseInputX * Time.deltaTime * 200f);
+            transform.RotateAround(playerPos, Vector3.up, keyInputX * Time.deltaTime * 200f);
 
-            transform.RotateAround(playerPos, transform.right, mouseInputY * Time.deltaTime * 200f);
+            transform.RotateAround(playerPos, transform.right, keyInputY * Time.deltaTime * 200f);
         }
+
+        
+       
     }
 }
