@@ -5,10 +5,13 @@ using UnityEngine;
 public class cheakTarget : MonoBehaviour
 {
     /// <summary>
-    /// search target
+    /// searching target
     /// </summary>
-    [SerializeField]
     GameObject targetObj = null;
+
+    [SerializeField]
+    string targetObjTag;
+
     /// <summary>
     /// 探す距離
     /// </summary>
@@ -47,7 +50,7 @@ public class cheakTarget : MonoBehaviour
         {
             subDis = 0.0f;
 
-            nearTargetObj = searchTag(gameObject, targetObj.tag);
+            nearTargetObj = searchTag(gameObject, targetObjTag);
 
             searchTime = 0.0f;
         }
@@ -55,7 +58,7 @@ public class cheakTarget : MonoBehaviour
 
     }
 
-    GameObject searchTag(GameObject nowTargetObj, string tagName)
+    public GameObject searchTag(GameObject nowTargetObj, string tagName)
     {
         
 

@@ -18,7 +18,10 @@ public class Player : MonoBehaviour
 
     private Vector3 moveForward;
 
-    private bool isGround;
+    /// <summary>
+    /// 接地判定
+    /// </summary>
+    public bool isGround;
 
     [SerializeField]
     private Rigidbody rb1;
@@ -68,7 +71,10 @@ public class Player : MonoBehaviour
         //}
         //rb1.position = nextPos;
 
-        rb1.AddForce(new Vector3(horizontalx, 0, verticalz) + moveSpeed * moveForward * 2, ForceMode.Impulse);
+        if (isGround)
+        {
+            rb1.AddForce(new Vector3(horizontalx, 0, verticalz) + moveSpeed * moveForward * 2, ForceMode.Impulse);
+        }
 
         //if (moveForward != Vector3.zero)
         //{
@@ -76,25 +82,22 @@ public class Player : MonoBehaviour
         //    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime);
         //}
         Debug.Log(isGround);
-
-        
-
     }
 
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if (collision.gameObject.tag == "Field")
-    //    {
-    //        rb1.velocity = Vector3.zero;
-    //        isGround = true;
-    //    }
-    //}
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Field")
+        {
+            //rb1.velocity = Vector3.zero;
+            isGround = true;
+        }
+    }
 
-    //private void OnCollisionExit(Collision collision)
-    //{
-    //    if (collision.gameObject.tag == "Field")
-    //    {
-    //        isGround = false;
-    //    }
-    //}
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "Field")
+        {
+            isGround = false;
+        }
+    }
 }
