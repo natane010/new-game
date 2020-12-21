@@ -5,7 +5,9 @@ using UnityEngine;
 public class PlayerCamera : MonoBehaviour
 {
     [SerializeField]
-    GameObject player;
+    GameObject playerObs;
+
+    Player player = new Player();
 
     private Vector3 playerPos;
 
@@ -15,7 +17,7 @@ public class PlayerCamera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerPos = player.transform.position;
+        playerPos = playerObs.transform.position;
     }
 
     // Update is called once per frame
@@ -26,8 +28,10 @@ public class PlayerCamera : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.position += player.transform.position - playerPos;
-        playerPos = player.transform.position;
+        transform.position += playerObs.transform.position - playerPos;
+        playerPos = playerObs.transform.position;
+
+        
 
         if (Input.GetMouseButton(0))
         {

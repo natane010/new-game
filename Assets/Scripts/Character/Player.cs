@@ -13,6 +13,11 @@ public class Player : MonoBehaviour
     [SerializeField]
     public float targetRotateSpeed;
 
+    [SerializeField]
+    public float searchRange;
+
+    string searchTagName;
+
     private float horizontalx;
     private float verticalz;
 
@@ -23,15 +28,27 @@ public class Player : MonoBehaviour
     /// </summary>
     public bool isGround;
 
+    public Vector3 nowVelocity;
+
     [SerializeField]
     private Rigidbody rb1;
+
+    [SerializeField]
+    GameObject playerObj;
+
+    cheakTarget cheakTarget = new cheakTarget();
+
+    public bool isSearch;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        //isSearch = true;　　＊＊＊＊＊＊＊＊なぜかうまくいかない＊＊＊＊＊＊＊＊＊
         playerpos = GetComponent<Transform>().position;
-        isGround = false;
+        isGround = true;
+        searchTagName = "Enemy";
+        nowVelocity = rb1.velocity;
     }
 
     // Update is called once per frame
@@ -39,6 +56,8 @@ public class Player : MonoBehaviour
     {
         horizontalx = Input.GetAxis("Horizontal");
         verticalz = Input.GetAxis("Vertical");
+
+        isSearch = cheakTarget.IsSearch(playerObj, searchTagName, searchRange, playerObj);
 
         //if (!isGround)
         //{
@@ -50,7 +69,7 @@ public class Player : MonoBehaviour
         //    gravity = 0;
         //}
 
-
+        //Debug.Log(isSearch);
     }
 
     private void FixedUpdate()
@@ -59,7 +78,7 @@ public class Player : MonoBehaviour
 
         moveForward = cameraForward * verticalz + Camera.main.transform.right * horizontalx;
 
-        //Debug.Log(rb1.velocity);
+        //{Debug.Log(rb1.velocity);
         ////Vector3 nextPos = rb1.position + moveForward * moveSpeed;
         //rb1.velocity = moveForward * moveSpeed + new Vector3(0, rb1.velocity.y, 0);
         ////瞬間移動するから対策 raycast で下を見る
@@ -69,7 +88,7 @@ public class Player : MonoBehaviour
         //{
         //    nextPos = hit.point;
         //}
-        //rb1.position = nextPos;
+        //rb1.position = nextPos;} 保留
 
         if (isGround)
         {
@@ -80,24 +99,22 @@ public class Player : MonoBehaviour
         //{
         //    Quaternion targetRotation = Quaternion.LookRotation(moveForward - transform.position);
         //    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime);
-        //}
+        //}　保留
         Debug.Log(isGround);
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Field")
-        {
-            //rb1.velocity = Vector3.zero;
-            isGround = true;
-        }
-    }
+    //private void OnCollisionEnter(Collision collision)
+    //{
 
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.tag == "Field")
-        {
-            isGround = false;
-        }
-    }
+    //    //player.nowVelocity = Vector3.zero;
+    //    isGround = true;
+
+    //}
+
+    //private void OnCollisionExit(Collision collision)
+    //{
+
+    //    isGround = false;
+
+    //}　＊＊＊＊＊＊わけわからないけど動かない＊＊＊＊＊＊
 }

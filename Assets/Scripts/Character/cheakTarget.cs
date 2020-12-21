@@ -7,15 +7,11 @@ public class cheakTarget : MonoBehaviour
     /// <summary>
     /// searching target
     /// </summary>
-    GameObject targetObj = null;
+    GameObject targetObj;
 
-    [SerializeField]
-    string targetObjTag;
+    //[SerializeField]
+    //string targetObjTag;
 
-    /// <summary>
-    /// 探す距離
-    /// </summary>
-    float searchDis;
     /// <summary>
     /// 最も近いターゲット距離
     /// </summary>
@@ -35,8 +31,6 @@ public class cheakTarget : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        subDis = searchDis;
-
         
     }
 
@@ -44,25 +38,13 @@ public class cheakTarget : MonoBehaviour
     void Update()
     {
 
-        searchTime += Time.deltaTime;
-
-        if (searchTime > 0.0f)
-        {
-            subDis = 0.0f;
-
-            nearTargetObj = searchTag(gameObject, targetObjTag);
-
-            searchTime = 0.0f;
-        }
-
-
     }
 
     public GameObject searchTag(GameObject nowTargetObj, string tagName)
     {
         
 
-        foreach (var obs in GameObject.FindGameObjectsWithTag(tagName))
+        foreach (GameObject obs in GameObject.FindGameObjectsWithTag(tagName))
         {
             nearDis = Vector3.Distance(obs.transform.position, nowTargetObj.transform.position);
 
@@ -77,5 +59,51 @@ public class cheakTarget : MonoBehaviour
             }
         }
         return targetObj;
+    }
+
+    public GameObject Search(GameObject now, string tag, float searchR)
+    {
+        searchTime += Time.deltaTime;
+
+        if (searchTime > 0.0f)
+        {
+            subDis = searchR;
+
+            nearTargetObj = searchTag(now, tag);
+
+            searchTime = 0.0f;
+        }
+
+        return nearTargetObj;
+    }
+
+    public bool IsSearch(GameObject nowObj, string tag, float searchR, GameObject rayOrigin)
+    {
+        bool isHit = false;
+
+        if (Search(nowObj, tag, searchR))
+        {
+            RaycastHit hit;
+
+            GameObject target = Search(nowObj, tag, searchR);
+
+            Vector3 objR = target.transform.position - rayOrigin.transform.position;
+            //方向ベクトル
+            Vector3 direction = objR.normalized;
+
+            if (Physics.Raycast(rayOrigin.transform.position, direction, out hit, searchR))
+            {
+                if (hit.transform.gameObject.tag == target.tag)
+                {
+                    isHit = true;
+                }
+                else
+                {
+                    isHit = false;
+                }
+            }
+            
+        }
+        return isHit;
     }
 }
