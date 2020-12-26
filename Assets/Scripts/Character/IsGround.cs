@@ -5,12 +5,12 @@ using UnityEngine;
 public class IsGround : MonoBehaviour
 {
 
-    Player player;
+    public bool collider1 = false; 
 
     // Start is called before the first frame update
     void Start()
     {
-        player = new Player();
+        
     }
 
     // Update is called once per frame
@@ -18,18 +18,14 @@ public class IsGround : MonoBehaviour
     {
 
     }
-    //private void OnCollisionEnter(Collision collision)
-    //{
 
-    //    //player.nowVelocity = Vector3.zero;
-    //    player.isGround = true;
+    private void OnCollisionEnter(Collision collision)
+    {
+        collider1 = true;
+    }
 
-    //}
-
-    //private void OnCollisionExit(Collision collision)
-    //{
-
-    //    player.isGround = false;
-
-    //}
+    private void OnCollisionExit(Collision collision)
+    {
+        collider1 = false;
+    }
 }

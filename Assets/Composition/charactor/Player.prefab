@@ -1941,10 +1941,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3127330090232492267}
-  - component: {fileID: 3127330090232492260}
   - component: {fileID: 3127330090232492261}
   - component: {fileID: 3127330090232492266}
-  - component: {fileID: 3127330090232492263}
   m_Layer: 0
   m_Name: isground
   m_TagString: Player
@@ -1966,18 +1964,6 @@ Transform:
   m_Father: {fileID: 3237027483916706088}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3127330090232492260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3127330090232492264}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7827eb5660b5324fa60662e08a0dc36, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &3127330090232492261
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2008,26 +1994,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 25
   jumpPow: 0
+  boostPow: 0
+  boostGauge: 0
   targetRotateSpeed: 0
   searchRange: 0
   isGround: 0
-  nowVelocity: {x: 0, y: 0, z: 0}
   rb1: {fileID: 3127330089292590573}
   playerObj: {fileID: 0}
-  isSearch: 0
---- !u!65 &3127330090232492263
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3127330090232492264}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1.9426575, z: 2.1843262}
-  m_Center: {x: 0, y: -1.0198975, z: 0.24121094}
 --- !u!1 &3276902387909326565
 GameObject:
   m_ObjectHideFlags: 0

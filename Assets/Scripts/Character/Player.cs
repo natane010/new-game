@@ -11,6 +11,11 @@ public class Player : MonoBehaviour
     [SerializeField]
     public float jumpPow;
     [SerializeField]
+    public float boostMaxPower;
+    public float boostPower;
+    public float boostGauge;
+    private float jumpCount;
+    [SerializeField]
     public float targetRotateSpeed;
 
     [SerializeField]
@@ -28,7 +33,7 @@ public class Player : MonoBehaviour
     /// </summary>
     public bool isGround;
 
-    public Vector3 nowVelocity;
+    //public Vector3 nowVelocity;
 
     [SerializeField]
     private Rigidbody rb1;
@@ -36,19 +41,34 @@ public class Player : MonoBehaviour
     [SerializeField]
     GameObject playerObj;
 
-    cheakTarget cheakTarget = new cheakTarget();
+    public GameObject leftLeg;
+    public GameObject rightLeg;
 
-    public bool isSearch;
+    private IsGround leftLegCollider;
+    private IsGround rightLegCollider;
+
+    //--------------------------------------------
+    //cheakTarget cheakTarget = new cheakTarget();
+
+    //public bool isSearch;
+    //上手くいかない
+    //--------------------------------------------
 
 
     // Start is called before the first frame update
     void Start()
     {
-        //isSearch = true;　　＊＊＊＊＊＊＊＊なぜかうまくいかない＊＊＊＊＊＊＊＊＊
+        leftLegCollider = leftLeg.GetComponent<IsGround>();
+        rightLegCollider = rightLeg.GetComponent<IsGround>();
+
         playerpos = GetComponent<Transform>().position;
-        isGround = true;
+        isGround = false;
+        boostGauge = 20;
+        jumpCount = 0;
+        boostPower = 1;
+
         searchTagName = "Enemy";
-        nowVelocity = rb1.velocity;
+        //nowVelocity = rb1.velocity;
     }
 
     // Update is called once per frame
@@ -57,8 +77,7 @@ public class Player : MonoBehaviour
         horizontalx = Input.GetAxis("Horizontal");
         verticalz = Input.GetAxis("Vertical");
 
-        isSearch = cheakTarget.IsSearch(playerObj, searchTagName, searchRange, playerObj);
-
+        //isSearch = cheakTarget.IsSearch(playerObj, searchTagName, searchRange, playerObj);
         //if (!isGround)
         //{
         //    //gravity -= gravityAcceleration;
@@ -68,12 +87,22 @@ public class Player : MonoBehaviour
         //{
         //    gravity = 0;
         //}
-
         //Debug.Log(isSearch);
+
+        if (leftLegCollider.collider1 && rightLegCollider.collider1 || leftLegCollider.collider1 && !rightLegCollider.collider1 || !leftLegCollider.collider1 && rightLegCollider.collider1)
+        {
+            isGround = true;
+        }
+        else
+        {
+            isGround = false;
+        }
     }
 
     private void FixedUpdate()
     {
+
+        //移動ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー
         Vector3 cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
 
         moveForward = cameraForward * verticalz + Camera.main.transform.right * horizontalx;
@@ -84,7 +113,7 @@ public class Player : MonoBehaviour
         ////瞬間移動するから対策 raycast で下を見る
         //RaycastHit hit;
         //Ray ray = new Ray(nextPos, Vector3.down);
-        //if(Physics.Raycast(ray, out hit, 1.0f, LayerMask.GetMask("Field")))
+        //if (Physics.Raycast(ray, out hit, 1.0f, LayerMask.GetMask("Field")))
         //{
         //    nextPos = hit.point;
         //}
@@ -92,7 +121,28 @@ public class Player : MonoBehaviour
 
         if (isGround)
         {
-            rb1.AddForce(new Vector3(horizontalx, 0, verticalz) + moveSpeed * moveForward * 2, ForceMode.Impulse);
+            rb1.AddForce(new Vector3(horizontalx, 0, verticalz) + moveSpeed * moveForward * boostPower * 2, ForceMode.Impulse);
+            jumpCount = 0;
+            if (boostGauge < 20)
+            {
+                boostGauge++;
+            }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                rb1.AddForce(Vector3.up * jumpPow);
+                boostGauge -= 1;
+            }
+        }
+        else if (!isGround)
+        {
+            rb1.AddForce(new Vector3(horizontalx, 0, verticalz) + moveSpeed * moveForward * boostPower / 2, ForceMode.Impulse);
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                rb1.AddForce(Vector3.up * jumpPow);
+                boostGauge -= 1;
+                jumpCount++;
+            }
         }
 
         //if (moveForward != Vector3.zero)
@@ -101,8 +151,21 @@ public class Player : MonoBehaviour
         //    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime);
         //}　保留
         Debug.Log(isGround);
+        //回避
+        if (Input.GetKey(KeyCode.X))
+        {
+            boostPower = boostMaxPower;
+            if (Input.GetKeyUp(KeyCode.X))
+            {
+                boostPower = 0;
+            }
+        }
+        else
+        {
+            boostPower = 1;
+        }
     }
-
+    //------------------------------------------------------
     //private void OnCollisionEnter(Collision collision)
     //{
 
@@ -110,11 +173,12 @@ public class Player : MonoBehaviour
     //    isGround = true;
 
     //}
-
     //private void OnCollisionExit(Collision collision)
     //{
 
     //    isGround = false;
 
-    //}　＊＊＊＊＊＊わけわからないけど動かない＊＊＊＊＊＊
+    //}
+    //＊＊＊＊＊＊＊＊＊＊＊＊
+    //---------------------------------------------------------
 }
