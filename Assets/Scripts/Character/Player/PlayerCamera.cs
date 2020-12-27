@@ -37,20 +37,14 @@ public class PlayerCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-    }
-
-    private void LateUpdate()
-    {
+        var lookAtPos = playerObs.transform.position + offset;
+        updatePosition(lookAtPos);
+        transform.LookAt(lookAtPos);
         if (Input.GetMouseButton(0))
         {
             updateAngle(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
         }
-        updateDistance(Input.GetAxis("Mouse ScrollWheel"));
-
-        var lookAtPos = playerObs.transform.position + offset;
-        updatePosition(lookAtPos);
-        transform.LookAt(lookAtPos);
+        //updateDistance(Input.GetAxis("Mouse ScrollWheel"));
     }
 
     private void updateAngle(float x, float y)
@@ -62,11 +56,11 @@ public class PlayerCamera : MonoBehaviour
         polarAngle = Mathf.Clamp(y, minPolarAngle, maxPolarAngle);
     }
 
-    private void updateDistance(float scroll)
-    {
-        scroll = distance - scroll * scrollSensitivity;
-        distance = Mathf.Clamp(scroll, minDistance, maxDistance);
-    }
+    //private void updateDistance(float scroll)
+    //{
+    //    scroll = distance - scroll * scrollSensitivity;
+    //    distance = Mathf.Clamp(scroll, minDistance, maxDistance);
+    //}
 
     void updatePosition(Vector3 lookAtPos)
     {

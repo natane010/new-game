@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class newPlayer : MonoBehaviour
 {
+    //Vector3 playerPosition;
+
     [SerializeField]
     public float playerHP;
     [SerializeField]
@@ -26,6 +28,8 @@ public class newPlayer : MonoBehaviour
     [SerializeField]
     public float jumpPow;
     [SerializeField]
+    public float boostMaxGauge;
+    [SerializeField]
     public float boostMaxPower;
     public float boostPower;
     public float boostGauge;
@@ -38,9 +42,14 @@ public class newPlayer : MonoBehaviour
     private IsGround leftLegCollider;
     private IsGround rightLegCollider;
 
+    
+    //Vector3 translation;
+    //Vector3 diff;
+
     // Start is called before the first frame update
     void Start()
     {
+        //playerPosition = GetComponent<Transform>().position;
         jumpCount = 0;
         leftLegCollider = leftLeg.GetComponent<IsGround>();
         rightLegCollider = rightLeg.GetComponent<IsGround>();
@@ -77,13 +86,13 @@ public class newPlayer : MonoBehaviour
         {
             isGround = false;
         }
-        if (isGround)
-        {
-            boostGauge += 2;
-        }
-        else
+        if (isGround && boostGauge < boostMaxGauge)
         {
             boostGauge++;
+        }
+        else if (boostGauge < boostMaxGauge)
+        {
+            boostGauge += 0.1f;
         }
     }
     private void FixedUpdate()
@@ -97,15 +106,15 @@ public class newPlayer : MonoBehaviour
         {
             if (isGround)
             {
-                rbLegRight.velocity += velocity;
-                rbLegLeft.velocity += velocity;
+                //rbLegRight.velocity += velocity;
+                //rbLegLeft.velocity += velocity;
                 rbMain.velocity += velocity;
                 rbBackpack.velocity += velocity;
             }
             else
             {
-                rbMain.velocity += velocity;
-                rbBackpack.velocity += velocity;
+                rbMain.velocity += velocity / 2;
+                rbBackpack.velocity += velocity / 2;
             }
         }
         if (Input.GetKeyDown(KeyCode.Space) && jumpCount < 3 && speed <= limitSpeed)
@@ -116,9 +125,8 @@ public class newPlayer : MonoBehaviour
                 rbLegRight.velocity += Vector3.up * jumpPow;
                 rbLegLeft.velocity += Vector3.up * jumpPow;
             }
-            boostGauge += 5;
+            boostGauge -= 5;
             jumpCount++;
         }
-        
     }
 }
