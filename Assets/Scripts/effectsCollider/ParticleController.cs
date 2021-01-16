@@ -15,12 +15,13 @@ public class ParticleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        transform.position += transform.forward * 150 * Time.deltaTime;
     }
 
     private void OnParticleCollision(GameObject other)
     {
         count++;
         //パーティクルが他のコリジョンにヒットしたとき呼び出されるのでここにヒット系を入れたい
+        
     }
 }

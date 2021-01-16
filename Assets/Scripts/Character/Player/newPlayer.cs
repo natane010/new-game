@@ -42,7 +42,12 @@ public class newPlayer : MonoBehaviour
     private IsGround leftLegCollider;
     private IsGround rightLegCollider;
 
-    
+    [SerializeField]
+    public float searchRange;
+    string searchTagName;
+    cheakTarget cheakTarget = new cheakTarget();
+    public bool isSearch;
+
     //Vector3 translation;
     //Vector3 diff;
 
@@ -54,6 +59,7 @@ public class newPlayer : MonoBehaviour
         leftLegCollider = leftLeg.GetComponent<IsGround>();
         rightLegCollider = rightLeg.GetComponent<IsGround>();
         playerHP = 30000;
+        searchTagName = "Enemy";
     }
 
     // Update is called once per frame
@@ -94,6 +100,8 @@ public class newPlayer : MonoBehaviour
         {
             boostGauge += 0.1f;
         }
+        isSearch = cheakTarget.IsSearch(this.gameObject, searchTagName, searchRange, this.gameObject);
+        Debug.Log(isSearch);
     }
     private void FixedUpdate()
     {
@@ -128,5 +136,7 @@ public class newPlayer : MonoBehaviour
             boostGauge -= 5;
             jumpCount++;
         }
+
+        transform.rotation = Quaternion.LookRotation(cameraForward);
     }
 }

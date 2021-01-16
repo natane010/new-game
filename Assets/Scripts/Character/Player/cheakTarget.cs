@@ -50,8 +50,10 @@ public class cheakTarget : MonoBehaviour
 
             if (nearDis == 0 || subDis > nearDis)
             {
+                //Debug.Log("obs");
                 subDis = nearDis;
                 targetObj = obs;
+                break;
             }
             else
             {
@@ -80,7 +82,6 @@ public class cheakTarget : MonoBehaviour
     public bool IsSearch(GameObject nowObj, string tag, float searchR, GameObject rayOrigin)
     {
         bool isHit = false;
-
         if (Search(nowObj, tag, searchR))
         {
             RaycastHit hit;
@@ -90,11 +91,15 @@ public class cheakTarget : MonoBehaviour
             Vector3 objR = target.transform.position - rayOrigin.transform.position;
             //方向ベクトル
             Vector3 direction = objR.normalized;
-
-            if (Physics.Raycast(rayOrigin.transform.position, direction, out hit, searchR))
+            
+            int layMask = LayerMask.GetMask("Enemy");
+            if (Physics.Raycast(rayOrigin.transform.position, direction, out hit, searchR, layMask))
             {
+                Debug.Log(target);
+                Debug.Log(hit.transform.gameObject);
                 if (hit.transform.gameObject.tag == target.tag)
                 {
+                    Debug.Log("c");
                     isHit = true;
                 }
                 else

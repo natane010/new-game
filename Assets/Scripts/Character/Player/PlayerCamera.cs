@@ -40,7 +40,7 @@ public class PlayerCamera : MonoBehaviour
         var lookAtPos = playerObs.transform.position + offset;
         updatePosition(lookAtPos);
         transform.LookAt(lookAtPos);
-        if (Input.GetMouseButton(0))
+        if (true) //(Input.GetMouseButton(0))
         {
             updateAngle(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
         }
