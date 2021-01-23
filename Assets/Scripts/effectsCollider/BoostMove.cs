@@ -8,6 +8,8 @@ public class BoostMove : MonoBehaviour
     [SerializeField]
     Rigidbody objRb;
 
+    Vector3 force;
+
     float speed;
 
     private List<ParticleSystem> _particleSystems;
@@ -22,21 +24,23 @@ public class BoostMove : MonoBehaviour
     void Update()
     {
         speed = objRb.velocity.magnitude;
-
         
-    }
-
-    private void OnValidate()
-    {
-        float parSpeed = speed * 3.5f;
+        float parSpeed = speed * 2.0f;
         foreach (var particle in _particleSystems)
         {
             ChangeSpeed(particle, parSpeed);
         }
+
+        force = new Vector3(0, 0, speed / 2);
+    }
+
+    private void FixedUpdate()
+    {
+        objRb.AddForce(force, ForceMode.Force);
     }
     private void ChangeSpeed(ParticleSystem particle, float speed)
     {
         var main = particle.main;
-        main.simulationSpeed = speed;
+        main.startSpeed = speed;
     }
 }
