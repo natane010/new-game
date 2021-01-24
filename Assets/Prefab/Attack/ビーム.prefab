@@ -3457,7 +3457,7 @@ ParticleSystem:
   CollisionModule:
     enabled: 0
     serializedVersion: 3
-    type: 0
+    type: 1
     collisionMode: 0
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0
@@ -3637,7 +3637,7 @@ ParticleSystem:
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
-    collisionMessages: 0
+    collisionMessages: 1
     collidesWithDynamic: 1
     interiorCollisions: 0
   TriggerModule:
@@ -4699,6 +4699,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a92ffb3c591a14d4fa56731e4e847461, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion: {fileID: 4420506398222913130, guid: fd4be3cbf4a7ed8488122b37eaacff97,
+    type: 3}
 --- !u!1 &2861835677785578045
 GameObject:
   m_ObjectHideFlags: 0
@@ -8147,9 +8149,9 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     range: {x: 0, y: 1}
   CollisionModule:
-    enabled: 0
+    enabled: 1
     serializedVersion: 3
-    type: 0
+    type: 1
     collisionMode: 0
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0
@@ -8329,12 +8331,12 @@ ParticleSystem:
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
-    collisionMessages: 0
+    collisionMessages: 1
     collidesWithDynamic: 1
     interiorCollisions: 0
   TriggerModule:
-    enabled: 0
-    collisionShape0: {fileID: 0}
+    enabled: 1
+    collisionShape0: {fileID: 2861835677785736717}
     collisionShape1: {fileID: 0}
     collisionShape2: {fileID: 0}
     collisionShape3: {fileID: 0}
@@ -12795,7 +12797,7 @@ ParticleSystem:
   CollisionModule:
     enabled: 0
     serializedVersion: 3
-    type: 0
+    type: 1
     collisionMode: 0
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0

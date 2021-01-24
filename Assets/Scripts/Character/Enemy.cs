@@ -27,7 +27,7 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        cheak();
     }
 
     private void FixedUpdate()
@@ -36,6 +36,14 @@ public class Enemy : MonoBehaviour
     }
 
     void Move()
+    {
+
+    }
+    void Attack()
+    {
+
+    }
+    void cheak()
     {
 
     }

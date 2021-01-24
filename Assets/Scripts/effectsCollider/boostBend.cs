@@ -4,17 +4,7 @@ using UnityEngine;
 
 public class boostBend : MonoBehaviour
 {
-    // X方向のベクトル
-    [SerializeField, Range(-5f, 5f)]
-    float vectorX = 0f;
-
-    // Z方向のベクトル
-    [SerializeField, Range(-5f, 5f)]
-    float vectorZ = 0f;
-
-    // 傾きベクトルの調整値
-    [SerializeField, Range(1f, 10f)]
-    float devideNum = 5f;
+    private Vector3 lastPos;
 
     // Start is called before the first frame update
     void Start()
@@ -25,11 +15,12 @@ public class boostBend : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // 向きベクトルから縦の傾きを得る
-        float y = Mathf.Pow((vectorX * vectorX) + (vectorZ * vectorZ), 0.5f) / devideNum;
-        Vector3 tiltVector = new Vector3(vectorX, -y, vectorZ);
+        Vector3 deff = transform.position - lastPos;
+        lastPos = transform.position;
 
-        // 回転をかける
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(tiltVector - transform.position), 0.1f);
+        if (deff.magnitude > 0.01f)
+        {
+            transform.rotation = Quaternion.LookRotation(deff);
+        }
     }
 }

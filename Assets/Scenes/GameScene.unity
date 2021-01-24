@@ -1822,13 +1822,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 3127330088922938525}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &627616069 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6476108205175277865, guid: 7f54b71b3f234f14f831cb487ee737a7,
-    type: 3}
-  m_PrefabInstance: {fileID: 3127330088922938525}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &627616070
+--- !u!114 &627616065
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1837,10 +1831,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 627616063}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6980e7d8d4235f3468c0aa0c07f2e96c, type: 3}
+  m_Script: {fileID: 11500000, guid: 41cce8bc284a3d1459b436c2fc348b07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 2861835677785578035, guid: 6411c4cd339341c4180dddb20607c84c, type: 3}
+--- !u!4 &627616069 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6476108205175277865, guid: 7f54b71b3f234f14f831cb487ee737a7,
+    type: 3}
+  m_PrefabInstance: {fileID: 3127330088922938525}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &683204155 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7826066994597006469, guid: 7f54b71b3f234f14f831cb487ee737a7,
@@ -2080,9 +2079,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a997fb0ba9819734886ec08ad0ba7dd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vectorX: 0
-  vectorZ: 0
-  devideNum: 5
 --- !u!1 &851345761
 GameObject:
   m_ObjectHideFlags: 0
@@ -4033,17 +4029,22 @@ PrefabInstance:
     - target: {fileID: 3127330089856653730, guid: 7f54b71b3f234f14f831cb487ee737a7,
         type: 3}
       propertyPath: m_ConnectedAnchor.x
-      value: 0.0051701264
+      value: 0.00526776
       objectReference: {fileID: 0}
     - target: {fileID: 3127330089856653730, guid: 7f54b71b3f234f14f831cb487ee737a7,
         type: 3}
       propertyPath: m_ConnectedAnchor.y
-      value: 0.019741746
+      value: 0.018597532
       objectReference: {fileID: 0}
     - target: {fileID: 3127330089856653730, guid: 7f54b71b3f234f14f831cb487ee737a7,
         type: 3}
       propertyPath: m_ConnectedAnchor.z
-      value: -0.00054889504
+      value: -0.0005489195
+      objectReference: {fileID: 0}
+    - target: {fileID: 3127330089856653730, guid: 7f54b71b3f234f14f831cb487ee737a7,
+        type: 3}
+      propertyPath: m_UseMotor
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3127330089856653731, guid: 7f54b71b3f234f14f831cb487ee737a7,
         type: 3}

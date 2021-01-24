@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class ParticleController : MonoBehaviour
 {
-    private int count;
+    [SerializeField]
+    private GameObject explosion;
 
     // Start is called before the first frame update
     void Start()
     {
-        count = 0;
+        
     }
 
     // Update is called once per frame
@@ -17,11 +18,12 @@ public class ParticleController : MonoBehaviour
     {
         transform.position += transform.forward * 150 * Time.deltaTime;
     }
-
     private void OnParticleCollision(GameObject other)
     {
-        count++;
-        //パーティクルが他のコリジョンにヒットしたとき呼び出されるのでここにヒット系を入れたい
-        
+        if (gameObject.tag != "Player")
+        {
+            Destroy(this.gameObject);
+            Instantiate(explosion, this.transform.position, Quaternion.identity);
+        }
     }
 }
