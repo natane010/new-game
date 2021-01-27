@@ -10,12 +10,20 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private float moveSpeed;
 
+    [SerializeField]
+    Transform targetpos;
+    [SerializeField]
+    Transform bulletPos;
+
+    bool player;
+    bool playerBullet;
+
     private Vector3 enemyPos;
 
     private float x;
     private float y;
 
-    
+    cheakTarget cheakTarget = new cheakTarget();
 
 
     // Start is called before the first frame update
@@ -27,7 +35,9 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        cheak();
+        transform.LookAt(targetpos);
+        cheakPlayer();
+        cheakBullet();
     }
 
     private void FixedUpdate()
@@ -39,12 +49,20 @@ public class Enemy : MonoBehaviour
     {
 
     }
+    void boost()
+    {
+
+    }
     void Attack()
     {
 
     }
-    void cheak()
+    void cheakPlayer()
     {
-
+        player = cheakTarget.IsSearch(this.gameObject, "Player", 100, this.gameObject);
+    }
+    void cheakBullet()
+    {
+        playerBullet = cheakTarget.IsSearch(this.gameObject, "Bullet", 1000, this.gameObject);
     }
 }

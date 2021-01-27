@@ -7,10 +7,14 @@ public class Attack : MonoBehaviour
     [SerializeField]
     GameObject bullet;
 
+    [SerializeField]
+    AudioClip canon;
+    AudioSource audioSource1;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioSource1 = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -26,6 +30,7 @@ public class Attack : MonoBehaviour
             angle.x -= 90.0f;
             Quaternion q1 = Quaternion.Euler(angle);
             Instantiate(bullet, placePos, q1);
+            audioSource1.PlayOneShot(canon);
         }
     }
 }
