@@ -25,4 +25,7 @@ public class railgun : MonoBehaviour
     {
         transform.rotation = Quaternion.LookRotation(cameraForward);
     }
+
+    //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+    //エラー起きる
 }

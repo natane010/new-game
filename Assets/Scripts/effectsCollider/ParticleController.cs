@@ -34,6 +34,7 @@ public class ParticleController : MonoBehaviour
     {
         if (other.gameObject.tag != "Player")
         {
+            audioSource.PlayOneShot(explosion1);
             Destroy(this.gameObject);
         }
     }
@@ -44,10 +45,5 @@ public class ParticleController : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-    }
-
-    private void OnDestroy()
-    {
-        audioSource.PlayOneShot(explosion1);
     }
 }

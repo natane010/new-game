@@ -4,21 +4,27 @@ using UnityEngine;
 
 public class Move : MonoBehaviour
 {
-    [SerializeField]
-    GameObject boost;
-
-    void Start()
+    public void MoveRb(Rigidbody rbMain, Rigidbody rbBackpack, Vector3 velocity, bool isGround)
     {
-       
+        if (isGround)
+        {
+            rbMain.velocity += velocity;
+            rbBackpack.velocity += velocity;
+        }
+        else
+        {
+            rbMain.velocity += velocity / 2;
+            rbBackpack.velocity += velocity / 2;
+        }
     }
-
-    void Update()
+    public void Jump(Rigidbody rbBackpack, Rigidbody rbLegRight, Rigidbody rbLegLeft, float jumpPow, bool isGround)
     {
-        
-    }
+        rbBackpack.velocity = Vector3.up * jumpPow;
 
-    void FixedUpdate()
-    {
-
+        if (isGround)
+        {
+            rbLegRight.velocity += Vector3.up * jumpPow;
+            rbLegLeft.velocity += Vector3.up * jumpPow;
+        }
     }
 }

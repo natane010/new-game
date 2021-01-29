@@ -48,8 +48,7 @@ public class newPlayer : MonoBehaviour
     cheakTarget cheakTarget = new cheakTarget();
     public bool isSearch;
 
-    //Vector3 translation;
-    //Vector3 diff;
+    Move move = new Move();
 
     // Start is called before the first frame update
     void Start()
@@ -69,19 +68,35 @@ public class newPlayer : MonoBehaviour
         velocity = Vector3.zero;
         if (Input.GetKey(KeyCode.W))
         {
-            velocity.z += 1;
+            velocity.z += 1.0f;
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                velocity.z *= 5;
+            }
         }
         if (Input.GetKey(KeyCode.A))
         {
-            velocity.x -= 1;
+            velocity.x -= 1.0f;
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                velocity.x *= 5;
+            }
         }
         if (Input.GetKey(KeyCode.S))
         {
-            velocity.z -= 1;
+            velocity.z -= 1.0f;
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                velocity.z *= 5;
+            }
         }
         if (Input.GetKey(KeyCode.D))
         {
-            velocity.x += 1;
+            velocity.x += 1.0f;
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                velocity.x *= 5;
+            }
         }
         if (leftLegCollider.collider1 && rightLegCollider.collider1 || leftLegCollider.collider1 && !rightLegCollider.collider1 || !leftLegCollider.collider1 && rightLegCollider.collider1)
         {
@@ -112,27 +127,11 @@ public class newPlayer : MonoBehaviour
 
         if (velocity.magnitude > 0 && speed <= limitSpeed)
         {
-            if (isGround)
-            {
-                //rbLegRight.velocity += velocity;
-                //rbLegLeft.velocity += velocity;
-                rbMain.velocity += velocity;
-                rbBackpack.velocity += velocity;
-            }
-            else
-            {
-                rbMain.velocity += velocity / 2;
-                rbBackpack.velocity += velocity / 2;
-            }
+            move.MoveRb(rbMain, rbBackpack, velocity, isGround);
         }
         if (Input.GetKeyDown(KeyCode.Space) && jumpCount < 3 && speed <= limitSpeed)
         {
-            rbBackpack.velocity = Vector3.up * jumpPow;
-            if (isGround)
-            {
-                rbLegRight.velocity += Vector3.up * jumpPow;
-                rbLegLeft.velocity += Vector3.up * jumpPow;
-            }
+            move.Jump(rbBackpack, rbLegRight, rbLegLeft, jumpPow, isGround);
             boostGauge -= 5;
             jumpCount++;
         }
