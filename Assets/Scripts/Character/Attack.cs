@@ -28,7 +28,7 @@ public class Attack : MonoBehaviour
 
             Vector3 angle = transform.eulerAngles;
             angle.x -= 90.0f;
-            Quaternion q1 = Quaternion.Euler(angle);
+            Quaternion q1 = transform.rotation * Quaternion.Euler(-90, 0, 0); 
             Instantiate(bullet, placePos, q1);
             audioSource1.PlayOneShot(canon);
         }

@@ -44,7 +44,6 @@ public class Enemy : MonoBehaviour
     {
         
     }
-
     void Move()
     {
 

@@ -27,8 +27,8 @@ public class boostBend : MonoBehaviour
 
         if (deff.magnitude > 0.01f)
         {
-            transform.rotation = Quaternion.LookRotation(boostForward);
-            //transform.rotation = Quaternion.Lerp(lastPos, boostForward, rotationSpeed);
+            Quaternion endRot = Quaternion.LookRotation(boostForward);
+            transform.rotation = Quaternion.Lerp(transform.rotation, endRot, rotationSpeed * Time.deltaTime);
         }
     }
 }

@@ -18,7 +18,7 @@ public class ParticleController : MonoBehaviour
         particleCollisionNotifys = GetComponentsInChildren<ParticleCollisionNotify>();
         for(int i = 0;i< particleCollisionNotifys.Length;i++)
         {
-            particleCollisionNotifys[i].Setup(OnParticleCollisionNotify);
+            //particleCollisionNotifys[i].Setup(OnParticleCollisionNotify);
         }
 
         audioSource = GetComponent<AudioSource>();
@@ -32,18 +32,30 @@ public class ParticleController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag != "Player")
+        if (other.gameObject.tag != this.gameObject.tag)
         {
             audioSource.PlayOneShot(explosion1);
             Destroy(this.gameObject);
+            Instantiate(explosion, this.transform.position, Quaternion.identity);
+
+            var a = other.GetComponent<newPlayer>();
+            var b = other.GetComponent<Enemy>();
+            if (a != null)
+            {
+                a.Damege();
+            }
+            else if (b != null)
+            {
+
+            }
         }
     }
 
-    void OnParticleCollisionNotify(GameObject hitObj)
-    {
-        if (gameObject.tag != "Player")
-        {
-            Destroy(this.gameObject);
-        }
-    }
+    //void OnParticleCollisionNotify(GameObject hitObj)
+    //{
+    //    if (gameObject.tag != "Player")
+    //    {
+    //        Destroy(this.gameObject);
+    //    }
+    //}
 }

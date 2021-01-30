@@ -17,15 +17,19 @@ public class railgun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
+        cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(0, 1, 0)).normalized;
         moveForward = cameraForward * velocity.z + Camera.main.transform.right * velocity.x;
-    }
 
-    private void FixedUpdate()
-    {
-        transform.rotation = Quaternion.LookRotation(cameraForward);
-    }
+        Vector3 point = Camera.main.transform.position + (Camera.main.transform.forward * 30.0f);
+        Vector3 forward = (point - transform.position).normalized;
+        Quaternion rot = Quaternion.LookRotation(forward);
+        Vector3 angle = rot.eulerAngles;
+        transform.eulerAngles = angle;
 
-    //aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-    //エラー起きる
+        angle = transform.localEulerAngles;
+        angle.x += 75.0f;
+        angle.y = 0.0f;
+        angle.z = 0.0f;
+        transform.localEulerAngles = angle;
+    }
 }

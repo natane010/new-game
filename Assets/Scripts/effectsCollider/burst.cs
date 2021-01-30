@@ -20,4 +20,9 @@ public class burst : MonoBehaviour
     {
         
     }
+
+    private void OnParticleSystemStopped()
+    {
+        Destroy(this.gameObject);
+    }
 }
