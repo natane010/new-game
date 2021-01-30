@@ -8,6 +8,8 @@ public class burst : MonoBehaviour
     AudioClip smallBurst;
     AudioSource audioSource;
 
+    burstController burstCon = new burstController();
+
     // Start is called before the first frame update
     void Start()
     {
