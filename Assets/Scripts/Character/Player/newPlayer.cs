@@ -138,4 +138,8 @@ public class newPlayer : MonoBehaviour
 
         transform.rotation = Quaternion.LookRotation(cameraForward);
     }
+   public void Damege()
+    {
+
+    }
 }

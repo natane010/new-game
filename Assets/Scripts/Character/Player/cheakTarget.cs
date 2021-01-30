@@ -28,18 +28,6 @@ public class cheakTarget : MonoBehaviour
     //一時保管
     float subDis;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     public GameObject searchTag(GameObject nowTargetObj, string tagName)
     {
         
@@ -50,7 +38,6 @@ public class cheakTarget : MonoBehaviour
 
             if (nearDis == 0 || subDis > nearDis)
             {
-                //Debug.Log("obs");
                 subDis = nearDis;
                 targetObj = obs;
                 break;
@@ -92,7 +79,7 @@ public class cheakTarget : MonoBehaviour
             //方向ベクトル
             Vector3 direction = objR.normalized;
             
-            int layMask = LayerMask.GetMask("Enemy");
+            int layMask = LayerMask.GetMask(tag);
             if (Physics.Raycast(rayOrigin.transform.position, direction, out hit, searchR, layMask))
             {
                 Debug.Log(target);
