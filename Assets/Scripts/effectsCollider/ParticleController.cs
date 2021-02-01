@@ -38,24 +38,16 @@ public class ParticleController : MonoBehaviour
             Destroy(this.gameObject);
             Instantiate(explosion, this.transform.position, Quaternion.identity);
 
-            var a = other.GetComponent<newPlayer>();
-            var b = other.GetComponent<Enemy>();
-            if (a != null)
+            var player = other.GetComponent<newPlayer>();
+            var enemy = other.GetComponent<Enemy>();
+            if (player != null)
             {
-                a.Damege();
+                player.Damege();
             }
-            else if (b != null)
+            else if (enemy != null)
             {
-
+                enemy.Damage();
             }
         }
     }
-
-    //void OnParticleCollisionNotify(GameObject hitObj)
-    //{
-    //    if (gameObject.tag != "Player")
-    //    {
-    //        Destroy(this.gameObject);
-    //    }
-    //}
 }

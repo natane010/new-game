@@ -64,4 +64,8 @@ public class Enemy : MonoBehaviour
     {
         playerBullet = cheakTarget.IsSearch(this.gameObject, "Bullet", 1000, this.gameObject);
     }
+    public void Damage()
+    {
+
+    }
 }
