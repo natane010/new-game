@@ -44,7 +44,7 @@ public class newPlayer : MonoBehaviour
 
     [SerializeField]
     public float searchRange;
-    string searchTagName;
+    string searchTagName = "Enemy";
     cheakTarget cheakTarget = new cheakTarget();
     public bool isSearch;
 
