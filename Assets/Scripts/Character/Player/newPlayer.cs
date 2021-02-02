@@ -140,6 +140,15 @@ public class newPlayer : MonoBehaviour
     }
    public void Damege()
     {
-
+        playerHP -= 100;
+        if (playerHP <= 0)
+        {
+            Lose();
+        }
+    }
+    void Lose()
+    {
+        Destroy(this.gameObject);
+        //爆発エフェクト入れてない
     }
 }
