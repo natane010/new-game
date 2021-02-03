@@ -11,7 +11,7 @@ public enum MoveMode
 public class Enemy : MonoBehaviour
 {
     [SerializeField]
-    private float enemyHP;
+    public float enemyHP;
     [SerializeField]
     Rigidbody target;
     [SerializeField]
@@ -43,10 +43,22 @@ public class Enemy : MonoBehaviour
 
     private Vector3 enemyPos;
     private Vector3 velocity;
+    private Vector3 forward;
+    private Quaternion rotation;
 
     private float x;
     private float y;
     private float z;
+
+    bool fire;
+    float count = 0;
+    [SerializeField]
+    GameObject bullet;
+    [SerializeField]
+    GameObject gun;
+    [SerializeField]
+    AudioClip canon;
+    AudioSource audioSource2;
 
     cheakTarget cheakTarget = new cheakTarget();
     Move move = new Move();
@@ -55,18 +67,19 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         enemyPos = GetComponent<Rigidbody>().position;
-        //enemyleftLegCollider = enemyleftLeg.GetComponent<IsGround>();
-        //enemyrightLegCollider = enemyrightLeg.GetComponent<IsGround>();
+        audioSource2 = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        var aim = targetpos.transform.position - this.transform.position;
-        var look = Quaternion.LookRotation(aim);
-        this.transform.localRotation = look;
+        if (enemyHP <= 0)
+        {
+            Destroy(this.gameObject);
+        }
         cheakPlayer();
-        cheakBullet();
+        //cheakBullet();
+        Rotation(targetpos.transform.position);
         if (enemyleftLegCollider.collider1 && enemyrightLegCollider.collider1 || enemyleftLegCollider.collider1 && !enemyrightLegCollider.collider1 || !enemyleftLegCollider.collider1 && enemyrightLegCollider.collider1)
         {
             isGround = true;
@@ -78,32 +91,60 @@ public class Enemy : MonoBehaviour
         float DisX = Mathf.Pow(this.transform.position.x - targetpos.transform.position.x, 2);
         float DisY = Mathf.Pow(this.transform.position.y - targetpos.transform.position.y, 2);
         float DisZ = Mathf.Pow(this.transform.position.z - targetpos.transform.position.z, 2);
-        float nowDis = Mathf.Sqrt(DisX + DisY + DisZ);
-        if (nowDis > 100)//遠い
+        float distance = Mathf.Sqrt(DisX + DisY + DisZ);
+        //距離によって移動・攻撃切り替える。
+        if (distance > 100)//遠い
         {
 
         }
-        else if (nowDis < 100)//近い
+        else if (distance < 100)//近い
         {
-
+            if (player)
+            {
+                fire = true;
+            }
+            else
+            {
+                fire = false;
+            }
         }
         else
         {
-
+            if (player)
+            {
+                fire = true;
+            }
+            else
+            {
+                fire = false;
+            }
         }
     }
 
     private void FixedUpdate()
     {
+        count++;
         move.MoveRb(enemyRbMain, enemyRbBackpack, velocity, isGround);
-    }
-    void boost()
-    {
-
+        Attack();
     }
     void Attack()
     {
+        if (fire == true && count >= 60)
+        {
+            Vector3 placePos = gun.transform.position;
 
+            Vector3 angle = transform.eulerAngles;
+            angle.x -= 90.0f;
+            Quaternion q1 = transform.rotation * Quaternion.Euler(0, 0, 0);
+            Instantiate(bullet, placePos, q1);
+            audioSource2.PlayOneShot(canon);
+            count = 0;
+        }
+    }
+    void Rotation(Vector3 a)
+    {
+        a.y = transform.position.y;
+        this.transform.LookAt(a);
     }
     void cheakPlayer()
     {
@@ -115,10 +156,6 @@ public class Enemy : MonoBehaviour
     }
     public void Damage()
     {
-        enemyHP -= 100;
-        if (enemyHP <= 0)
-        {
-            Destroy(this.gameObject);
-        }
+        this.enemyHP -= 100;
     }
 }

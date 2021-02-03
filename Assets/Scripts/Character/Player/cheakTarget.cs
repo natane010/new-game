@@ -82,8 +82,8 @@ public class cheakTarget : MonoBehaviour
             int layMask = LayerMask.GetMask(tag);
             if (Physics.Raycast(rayOrigin.transform.position, direction, out hit, searchR, layMask))
             {
-                Debug.Log(target);
-                Debug.Log(hit.transform.gameObject);
+                //Debug.Log(target);
+                //Debug.Log(hit.transform.gameObject);
                 if (hit.transform.gameObject.tag == target.tag)
                 {
                     Debug.Log("c");

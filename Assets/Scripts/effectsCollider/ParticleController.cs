@@ -12,6 +12,10 @@ public class ParticleController : MonoBehaviour
     public AudioClip explosion1;
     AudioSource audioSource;
 
+    GameObject target;
+    Enemy enemy;
+    newPlayer player;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,9 +41,18 @@ public class ParticleController : MonoBehaviour
             audioSource.PlayOneShot(explosion1);
             Destroy(this.gameObject);
             Instantiate(explosion, this.transform.position, Quaternion.identity);
-
-            var player = other.GetComponent<newPlayer>();
-            var enemy = other.GetComponent<Enemy>();
+            
+            var tag = other.gameObject.tag;
+            if (tag == "Player")
+            {
+                target = GameObject.Find("Player");
+                player = target.GetComponent<newPlayer>();
+            }
+            else if (tag == "Enemy")
+            {
+                target = GameObject.Find("Enemy");
+                enemy = target.GetComponent<Enemy>();
+            }
             if (player != null)
             {
                 player.Damege();
