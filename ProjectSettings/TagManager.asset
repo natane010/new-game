@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - playerBullet
   - enemyBullet
+  - wall
   layers:
   - Default
   - TransparentFX
@@ -25,7 +26,7 @@ TagManager:
   - EnemyParts
   - EnemyGun
   - Field
-  - 
+  - wall
   - 
   - 
   - 

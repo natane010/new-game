@@ -38,11 +38,12 @@ public class ParticleController : MonoBehaviour
     {
         if (other.gameObject.tag != this.gameObject.tag)
         {
-            audioSource.PlayOneShot(explosion1);
-            Destroy(this.gameObject);
-            Instantiate(explosion, this.transform.position, Quaternion.identity);
-            
             var tag = other.gameObject.tag;
+            if (tag == "wall")
+            {
+                Destroy(this.gameObject);
+                return;
+            }
             if (tag == "Player")
             {
                 target = GameObject.Find("Player");
@@ -53,7 +54,11 @@ public class ParticleController : MonoBehaviour
                 target = GameObject.Find("Enemy");
                 enemy = target.GetComponent<Enemy>();
             }
-            if (player != null)
+            if (player == null && enemy == null)
+            {
+                return;
+            }
+            else if (player != null)
             {
                 player.Damege();
             }
@@ -61,6 +66,9 @@ public class ParticleController : MonoBehaviour
             {
                 enemy.Damage();
             }
+            audioSource.PlayOneShot(explosion1);
+            Destroy(this.gameObject);
+            Instantiate(explosion, this.transform.position, Quaternion.identity);
         }
     }
 }
