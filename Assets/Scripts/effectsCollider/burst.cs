@@ -9,11 +9,13 @@ public class burst : MonoBehaviour
     AudioSource audioSource;
 
     burstController burstCon = new burstController();
-
+    private void Awake()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
     // Start is called before the first frame update
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
         audioSource.PlayOneShot(smallBurst);
     }
 

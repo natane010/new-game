@@ -9,6 +9,7 @@ public class ParticleController : MonoBehaviour
 
     ParticleCollisionNotify[] particleCollisionNotifys = null;
 
+    [SerializeField]
     public AudioClip explosion1;
     AudioSource audioSource;
 
@@ -24,7 +25,9 @@ public class ParticleController : MonoBehaviour
         {
             //particleCollisionNotifys[i].Setup(OnParticleCollisionNotify);
         }
-
+    }
+    private void Awake()
+    {
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -39,6 +42,7 @@ public class ParticleController : MonoBehaviour
         if (other.gameObject.tag != this.gameObject.tag)
         {
             var tag = other.gameObject.tag;
+            audioSource.PlayOneShot(explosion1);
             if (tag == "wall")
             {
                 Destroy(this.gameObject);
@@ -46,16 +50,17 @@ public class ParticleController : MonoBehaviour
             }
             if (tag == "Player")
             {
-                target = GameObject.Find("Player");
-                player = target.GetComponent<newPlayer>();
+                
+                player = other.gameObject.GetComponentInParent<newPlayer>();
             }
             else if (tag == "Enemy")
             {
-                target = GameObject.Find("Enemy");
-                enemy = target.GetComponent<Enemy>();
+                enemy = other.gameObject.GetComponentInParent<Enemy>();
             }
+            Instantiate(explosion, this.transform.position, Quaternion.identity);
             if (player == null && enemy == null)
             {
+                Destroy(this.gameObject);
                 return;
             }
             else if (player != null)
@@ -66,9 +71,7 @@ public class ParticleController : MonoBehaviour
             {
                 enemy.Damage();
             }
-            audioSource.PlayOneShot(explosion1);
             Destroy(this.gameObject);
-            Instantiate(explosion, this.transform.position, Quaternion.identity);
         }
     }
 }

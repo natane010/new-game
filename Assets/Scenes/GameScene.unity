@@ -583,14 +583,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 371708570}
-  m_LocalRotation: {x: -0, y: -0, z: -0.0050827386, w: 0.9999871}
-  m_LocalPosition: {x: 1371.0486, y: 171.31117, z: 1296.69}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1368.9, y: 171.31117, z: 1297.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1060147486}
   m_Father: {fileID: 0}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.582}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &371708572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -621,6 +621,9 @@ MonoBehaviour:
   bullet: {fileID: 5724812200797704430, guid: 97c7ce7ca7695d5419fedc1933d6d360, type: 3}
   gun: {fileID: 1572744676}
   canon: {fileID: 8300000, guid: b0a610d1bbdabba4382af8d4d501546e, type: 3}
+  elect: {fileID: 100008, guid: f28af10df6dca4cbea11c44473f45827, type: 3}
+  explosion: {fileID: 5132307592695897111, guid: 7298019b81ca2ad4bb5dde0b9ceb0791,
+    type: 3}
 --- !u!138 &371708573
 FixedJoint:
   m_ObjectHideFlags: 0
@@ -1137,17 +1140,17 @@ PrefabInstance:
     - target: {fileID: 3237027483916706088, guid: 7f54b71b3f234f14f831cb487ee737a7,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 23.74939
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3237027483916706088, guid: 7f54b71b3f234f14f831cb487ee737a7,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.4217834
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3237027483916706088, guid: 7f54b71b3f234f14f831cb487ee737a7,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.4780273
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3237027483916706088, guid: 7f54b71b3f234f14f831cb487ee737a7,
         type: 3}
@@ -1172,7 +1175,7 @@ PrefabInstance:
     - target: {fileID: 3237027483916706088, guid: 7f54b71b3f234f14f831cb487ee737a7,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3237027483916706088, guid: 7f54b71b3f234f14f831cb487ee737a7,
         type: 3}
@@ -3165,12 +3168,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHP: 10000
   player: {fileID: 1394282904}
-  limitSpeed: 15
+  limitSpeed: 100
   rbBackpack: {fileID: 1394282904}
   rbLegRight: {fileID: 683204156}
   rbLegLeft: {fileID: 886157106}
   rbMain: {fileID: 1394282904}
-  moveSpeed: 300
+  moveSpeed: 1000
   jumpPow: 200
   boostMaxGauge: 20
   boostMaxPower: 0

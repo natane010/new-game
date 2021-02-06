@@ -1,13 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public enum MoveMode
-{
-    Idle = 0,
-    Move = 1,
-    Boost = 2
-}
 public class Enemy : MonoBehaviour
 {
     [SerializeField]
@@ -59,6 +52,10 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     AudioClip canon;
     AudioSource audioSource2;
+    [SerializeField]
+    private GameObject elect;
+    [SerializeField]
+    private GameObject explosion;
 
     cheakTarget cheakTarget = new cheakTarget();
     Move move = new Move();
@@ -79,7 +76,7 @@ public class Enemy : MonoBehaviour
         }
         cheakPlayer();
         //cheakBullet();
-        Rotation(targetpos.transform.position);
+        Rotation();
         if (enemyleftLegCollider.collider1 && enemyrightLegCollider.collider1 || enemyleftLegCollider.collider1 && !enemyrightLegCollider.collider1 || !enemyleftLegCollider.collider1 && enemyrightLegCollider.collider1)
         {
             isGround = true;
@@ -95,9 +92,9 @@ public class Enemy : MonoBehaviour
         //距離によって移動・攻撃切り替える。
         if (distance > 100)//遠い
         {
-
+            this.transform.position += (targetpos.transform.position - transform.position) * Time.deltaTime;
         }
-        else if (distance < 100)//近い
+        else if (distance < 1000)//近い
         {
             if (player)
             {
@@ -141,10 +138,11 @@ public class Enemy : MonoBehaviour
             count = 0;
         }
     }
-    void Rotation(Vector3 a)
+    void Rotation()
     {
-        a.y = transform.position.y;
-        this.transform.LookAt(a);
+        //a.y = this.transform.position.y;
+        Vector3 a = targetpos.transform.position;
+        transform.LookAt(a);
     }
     void cheakPlayer()
     {
@@ -156,6 +154,19 @@ public class Enemy : MonoBehaviour
     }
     public void Damage()
     {
-        this.enemyHP -= 100;
+       
+        enemyHP -= 3000;
+        if (enemyHP <= 5000)
+        {
+            
+            Instantiate(elect, this.transform.position, Quaternion.identity);
+        }
+        else if (enemyHP <= 0)
+        {
+            
+            Destroy(elect);
+            Instantiate(explosion, this.transform.position, Quaternion.identity);
+            Destroy(this.gameObject);
+        }
     }
 }

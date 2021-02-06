@@ -6,15 +6,18 @@ public class Move : MonoBehaviour
 {
     public void MoveRb(Rigidbody rbMain, Rigidbody rbBackpack, Vector3 velocity, bool isGround)
     {
-        if (isGround)
+        if (true)
         {
-            rbMain.velocity += velocity;
-            rbBackpack.velocity += velocity;
-        }
-        else
-        {
-            rbMain.velocity += velocity / 2;
-            rbBackpack.velocity += velocity / 2;
+            if (isGround)
+            {
+                rbMain.velocity += velocity * Time.deltaTime;
+                rbBackpack.velocity += velocity * Time.deltaTime;
+            }
+            else
+            {
+                rbMain.velocity += velocity / 2 * Time.deltaTime;
+                rbBackpack.velocity += velocity / 2 * Time.deltaTime;
+            }
         }
     }
     public void Jump(Rigidbody rbBackpack, Rigidbody rbLegRight, Rigidbody rbLegLeft, float jumpPow, bool isGround)
@@ -23,8 +26,8 @@ public class Move : MonoBehaviour
 
         if (isGround)
         {
-            rbLegRight.velocity += Vector3.up * jumpPow;
-            rbLegLeft.velocity += Vector3.up * jumpPow;
+            rbLegRight.velocity += Vector3.up * jumpPow * Time.deltaTime;
+            rbLegLeft.velocity += Vector3.up * jumpPow * Time.deltaTime;
         }
     }
 }
