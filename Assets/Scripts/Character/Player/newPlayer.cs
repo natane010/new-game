@@ -68,7 +68,7 @@ public class newPlayer : MonoBehaviour
         velocity = Vector3.zero;
         if (Input.GetKey(KeyCode.W))
         {
-            velocity.z += 1.0f;
+            velocity.z += 10.0f;
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 velocity.z *= 5;
@@ -76,7 +76,7 @@ public class newPlayer : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.A))
         {
-            velocity.x -= 1.0f;
+            velocity.x -= 10.0f;
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 velocity.x *= 5;
@@ -84,7 +84,7 @@ public class newPlayer : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.S))
         {
-            velocity.z -= 1.0f;
+            velocity.z -= 10.0f;
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 velocity.z *= 5;
@@ -92,7 +92,7 @@ public class newPlayer : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.D))
         {
-            velocity.x += 1.0f;
+            velocity.x += 10.0f;
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 velocity.x *= 5;

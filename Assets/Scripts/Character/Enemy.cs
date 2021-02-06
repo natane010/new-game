@@ -158,13 +158,10 @@ public class Enemy : MonoBehaviour
         enemyHP -= 3000;
         if (enemyHP <= 5000)
         {
-            
-            Instantiate(elect, this.transform.position, Quaternion.identity);
+            //Instantiate(elect, this.transform.position, Quaternion.identity);
         }
         else if (enemyHP <= 0)
         {
-            
-            Destroy(elect);
             Instantiate(explosion, this.transform.position, Quaternion.identity);
             Destroy(this.gameObject);
         }
