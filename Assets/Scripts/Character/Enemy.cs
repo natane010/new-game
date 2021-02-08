@@ -70,8 +70,13 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (enemyHP <= 0)
+        if (enemyHP <= 5000 && enemyHP > 0)
         {
+            //Instantiate(elect, enemyRbBackpack.transform.position, Quaternion.identity);
+        }
+        else if (enemyHP <= 0)
+        {
+            Instantiate(explosion, enemyRbBackpack.transform.position, Quaternion.identity);
             Destroy(this.gameObject);
         }
         cheakPlayer();
@@ -153,17 +158,7 @@ public class Enemy : MonoBehaviour
         playerBullet = cheakTarget.IsSearch(this.gameObject, "Bullet", 1000, this.gameObject);
     }
     public void Damage()
-    {
-       
+    {    
         enemyHP -= 3000;
-        if (enemyHP <= 5000)
-        {
-            //Instantiate(elect, this.transform.position, Quaternion.identity);
-        }
-        else if (enemyHP <= 0)
-        {
-            Instantiate(explosion, this.transform.position, Quaternion.identity);
-            Destroy(this.gameObject);
-        }
     }
 }
