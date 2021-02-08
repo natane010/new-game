@@ -621,7 +621,7 @@ MonoBehaviour:
   bullet: {fileID: 5724812200797704430, guid: 97c7ce7ca7695d5419fedc1933d6d360, type: 3}
   gun: {fileID: 1572744676}
   canon: {fileID: 8300000, guid: b0a610d1bbdabba4382af8d4d501546e, type: 3}
-  elect: {fileID: 100008, guid: f28af10df6dca4cbea11c44473f45827, type: 3}
+  elect: {fileID: 100008, guid: 1f69573c6714a41afa0156d54135c6b9, type: 3}
   explosion: {fileID: 217230151573444, guid: 9ea440d0054256b49bea322ecb5168b7, type: 3}
 --- !u!138 &371708573
 FixedJoint:
