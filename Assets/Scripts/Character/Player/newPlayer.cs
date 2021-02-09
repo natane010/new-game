@@ -116,7 +116,7 @@ public class newPlayer : MonoBehaviour
             boostGauge += 0.1f;
         }
         isSearch = cheakTarget.IsSearch(this.gameObject, searchTagName, searchRange, this.gameObject);
-        Debug.Log(isSearch);
+        //Debug.Log(isSearch);
     }
     private void FixedUpdate()
     {

@@ -792,8 +792,13 @@ MonoBehaviour:
   bullet: {fileID: 5724812200797704430, guid: 97c7ce7ca7695d5419fedc1933d6d360, type: 3}
   gun: {fileID: 1572744676}
   canon: {fileID: 8300000, guid: b0a610d1bbdabba4382af8d4d501546e, type: 3}
-  elect: {fileID: 6544424604294099173, guid: 320186e5f3cab054ba55b6a837191124, type: 3}
+  elect: {fileID: 8115128863714790569, guid: f29a6f534de2fd74884c96af04d76a17, type: 3}
+  elect1: {fileID: 6696201607813923730, guid: b7d80249a9fd1084dacebda6765f5e84, type: 3}
+  elect2: {fileID: 6696201607813923730, guid: 2f175d3689c8bed46961b60d273e0995, type: 3}
+  elect3: {fileID: 6696201607813923730, guid: 2f175d3689c8bed46961b60d273e0995, type: 3}
+  elect4: {fileID: 6696201607813923730, guid: 2f175d3689c8bed46961b60d273e0995, type: 3}
   explosion: {fileID: 217230151573444, guid: 9ea440d0054256b49bea322ecb5168b7, type: 3}
+  effectCheak: 0
 --- !u!138 &371708573
 FixedJoint:
   m_ObjectHideFlags: 0
@@ -3806,14 +3811,14 @@ RectTransform:
   m_GameObject: {fileID: 1997001330}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 92}
-  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0}
   m_Children: []
   m_Father: {fileID: 995446173}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000015259, y: 119}
+  m_AnchoredPosition: {x: 0.000015259, y: 249}
   m_SizeDelta: {x: 356.125, y: 345.52844}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1997001332

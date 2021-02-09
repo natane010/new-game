@@ -55,7 +55,19 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private GameObject elect;
     [SerializeField]
+    private GameObject elect1;
+    [SerializeField]
+    private GameObject elect2;
+    [SerializeField]
+    private GameObject elect3;
+    [SerializeField]
+    private GameObject elect4;
+    [SerializeField]
     private GameObject explosion;
+
+    
+    private bool hpCheak = false;
+    public bool effectCheak = false;
 
     cheakTarget cheakTarget = new cheakTarget();
     Move move = new Move();
@@ -72,7 +84,23 @@ public class Enemy : MonoBehaviour
     {
         if (enemyHP <= 5000 && enemyHP > 0)
         {
-            //Instantiate(elect, enemyRbMain.transform.position, Quaternion.identity);
+            if (hpCheak == false)
+            {
+                var parent = this.transform;
+                var electpos = enemyRbMain.transform.position;
+                electpos.y -= 3; 
+                Instantiate(elect, electpos, Quaternion.identity, parent);
+
+                hpCheak = true;
+            }
+            if (effectCheak == false)
+            {
+                Instantiate(elect1, enemyleftLeg.transform.position, Quaternion.identity);
+                Instantiate(elect2, enemyrightLeg.transform.position, Quaternion.identity);
+                Instantiate(elect3, enemyRbBackpack.transform.position, Quaternion.identity);
+                Instantiate(elect4, enemyRbMain.transform.position, Quaternion.identity);
+                effectCheak = true;
+            }
         }
         else if (enemyHP <= 0)
         {
@@ -161,5 +189,10 @@ public class Enemy : MonoBehaviour
     public void Damage()
     {    
         enemyHP -= 3000;
+    }
+    public void EffectEnd()
+    {
+        Debug.Log("kiteruaaa");
+        effectCheak = false;
     }
 }

@@ -86,7 +86,7 @@ public class cheakTarget : MonoBehaviour
                 //Debug.Log(hit.transform.gameObject);
                 if (hit.transform.gameObject.tag == target.tag)
                 {
-                    Debug.Log("c");
+                    //Debug.Log("c");
                     isHit = true;
                 }
                 else
