@@ -7,6 +7,8 @@ public class railgun : MonoBehaviour
     private Vector3 moveForward;
     private Vector3 velocity;
     Vector3 cameraForward;
+    [SerializeField]
+    GameObject rethi;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +27,8 @@ public class railgun : MonoBehaviour
         Quaternion rot = Quaternion.LookRotation(forward);
         Vector3 angle = rot.eulerAngles;
         transform.eulerAngles = angle;
-
+        //point.y += 5;
+        //rethi.transform.position = point;
         angle = transform.localEulerAngles;
         angle.x += 75.0f;
         angle.y = 0.0f;
