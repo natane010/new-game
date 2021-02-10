@@ -29,9 +29,12 @@ public class Enemy : MonoBehaviour
     bool isGround;
     public IsGround enemyleftLegCollider;
     public IsGround enemyrightLegCollider;
+    public IsGround enemyLeftLegPegCollider;
+    public IsGround enemyrightLegPegCollider;
     public GameObject enemyleftLeg;
     public GameObject enemyrightLeg;
-
+    public GameObject enemyleftLegPeg;
+    public GameObject enemyrightLegPeg;
     public bool isAttack;
 
     private Vector3 enemyPos;
@@ -65,6 +68,9 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private GameObject explosion;
 
+    Vector3 moveFoward;
+    Vector3 targetVector;
+    Vector3 nowVector;
     
     private bool hpCheak = false;
     public bool effectCheak = false;
@@ -77,6 +83,10 @@ public class Enemy : MonoBehaviour
     {
         enemyPos = GetComponent<Rigidbody>().position;
         audioSource2 = GetComponent<AudioSource>();
+        enemyleftLegCollider = enemyleftLeg.GetComponent<IsGround>();
+        enemyrightLegCollider = enemyrightLeg.GetComponent<IsGround>();
+        enemyLeftLegPegCollider = enemyleftLegPeg.GetComponent<IsGround>();
+        enemyrightLegCollider = enemyrightLegPeg.GetComponent<IsGround>();
     }
 
     // Update is called once per frame
@@ -111,7 +121,8 @@ public class Enemy : MonoBehaviour
         cheakPlayer();
         //cheakBullet();
         Rotation();
-        if (enemyleftLegCollider.collider1 && enemyrightLegCollider.collider1 || enemyleftLegCollider.collider1 && !enemyrightLegCollider.collider1 || !enemyleftLegCollider.collider1 && enemyrightLegCollider.collider1)
+        if (enemyleftLegCollider.collider1 || enemyrightLegCollider.collider1 ||
+            enemyrightLegPegCollider.collider1 || enemyLeftLegPegCollider.collider1)
         {
             isGround = true;
         }
@@ -124,9 +135,16 @@ public class Enemy : MonoBehaviour
         float DisZ = Mathf.Pow(this.transform.position.z - targetpos.transform.position.z, 2);
         float distance = Mathf.Sqrt(DisX + DisY + DisZ);
         //距離によって移動・攻撃切り替える。
+        targetVector = target.transform.position;
+        nowVector = this.transform.position;
         if (distance > 100)//遠い
         {
-            this.transform.position += (targetpos.transform.position - transform.position) * Time.deltaTime;
+            if (isGround)
+            {
+                //this.transform.position += (targetpos.transform.position - transform.position) * Time.deltaTime;
+            }
+            moveFoward = targetVector - nowVector;
+            velocity = moveFoward.normalized * moveSpeed;
         }
         else if (distance < 1000)//近い
         {
