@@ -30,7 +30,7 @@ public class railgun : MonoBehaviour
         //point.y += 5;
         //rethi.transform.position = point;
         angle = transform.localEulerAngles;
-        angle.x += 75.0f;
+        angle.x += 65.0f;
         angle.y = 0.0f;
         angle.z = 0.0f;
         transform.localEulerAngles = angle;
