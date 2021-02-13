@@ -78,6 +78,10 @@ public class Enemy : MonoBehaviour
     cheakTarget cheakTarget = new cheakTarget();
     Move move = new Move();
 
+    bool isObstacle;
+    [SerializeField]
+    float jumpPow;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -92,6 +96,16 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Vector3 front = this.gameObject.transform.forward;
+        int layMask = ~(1 << 9);
+        if (Physics.Raycast(this.gameObject.transform.position, front, 10.0f, layMask))
+        {
+            isObstacle = true;
+        }
+        else
+        {
+            isObstacle = false;
+        }
         if (enemyHP <= 5000 && enemyHP > 0)
         {
             if (hpCheak == false)
@@ -199,6 +213,11 @@ public class Enemy : MonoBehaviour
         count++;
         move.MoveRb(enemyRbMain, enemyRbBackpack, velocity, isGround);
         Attack();
+        if (isObstacle)
+        {
+            enemyRbMain.velocity += Vector3.up * jumpPow * Time.deltaTime;
+            enemyRbBackpack.velocity += Vector3.up * jumpPow * Time.deltaTime;
+        }
     }
     void Attack()
     {

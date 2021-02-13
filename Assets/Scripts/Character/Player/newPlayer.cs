@@ -158,7 +158,7 @@ public class newPlayer : MonoBehaviour
    public void Damege()
     {
         float damegetime = 0.0f;
-        shake.Shake(0.5f, 0.1f);
+        shake.Shake(0.2f, 0.1f);
         //damageTime.Noise(0.5f);
         while (damegetime < 0.5f)
         {
