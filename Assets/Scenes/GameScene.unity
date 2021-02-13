@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: f15c336556dd74f40aaca655f7767970, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 5d133deeaa66ed445853e946ff25e073, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -121,6 +121,36 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &121174822
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 121174823}
+  m_Layer: 0
+  m_Name: GameObject (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &121174823
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 121174822}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 593, y: 9.426855, z: 382.99997}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &152951423
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,6 +608,7 @@ GameObject:
   - component: {fileID: 306468524}
   - component: {fileID: 306468526}
   - component: {fileID: 306468525}
+  - component: {fileID: 306468527}
   m_Layer: 0
   m_Name: playerPoint
   m_TagString: Untagged
@@ -646,6 +677,31 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 306468523}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &306468527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306468523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e727d17376094b44494b379f9d7f7eb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 666243362}
+--- !u!1 &352532309 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3759362538191457021, guid: 7b0f9c3419c9d154d8f93e7e0deb563a,
+    type: 3}
+  m_PrefabInstance: {fileID: 3759362537824966759}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &666243362 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6905597782316798850, guid: 476a4a09371de0c47a2be13efc3c9a40,
+    type: 3}
+  m_PrefabInstance: {fileID: 6905597780609948817}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -674,7 +730,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 0.7803922, g: 0.35686275, b: 0.28627452, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -1115,6 +1171,7 @@ GameObject:
   - component: {fileID: 1001301049}
   - component: {fileID: 1001301051}
   - component: {fileID: 1001301050}
+  - component: {fileID: 1001301052}
   m_Layer: 0
   m_Name: EnemyPoint
   m_TagString: Untagged
@@ -1183,6 +1240,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1001301048}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1001301052
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1001301048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e727d17376094b44494b379f9d7f7eb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 352532309}
 --- !u!1 &1037172667
 GameObject:
   m_ObjectHideFlags: 0
@@ -1733,13 +1803,13 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0.84
-    y: 0.7
+    x: 0.86
+    y: 0.69
     width: 1
     height: 1
   near clip plane: 0.3
   far clip plane: 3000
-  field of view: 55.726078
+  field of view: 59.90739
   orthographic: 0
   orthographic size: 5
   m_Depth: 1
@@ -2419,6 +2489,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905597782316798855, guid: 476a4a09371de0c47a2be13efc3c9a40,
+        type: 3}
+      propertyPath: jumpPow
+      value: 400
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 476a4a09371de0c47a2be13efc3c9a40, type: 3}
