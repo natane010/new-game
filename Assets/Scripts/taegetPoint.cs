@@ -18,8 +18,11 @@ public class taegetPoint : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        latepos = target.transform.position;
-        latepos.y = y;
-        this.gameObject.transform.position = latepos;
+        if (target)
+        {
+            latepos = target.transform.position;
+            latepos.y = y;
+            this.gameObject.transform.position = latepos;
+        }
     }
 }
