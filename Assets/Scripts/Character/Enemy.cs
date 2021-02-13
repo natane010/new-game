@@ -142,24 +142,11 @@ public class Enemy : MonoBehaviour
             if (isGround)
             {
                 //this.transform.position += (targetpos.transform.position - transform.position) * Time.deltaTime;
-                moveFoward = targetVector - nowVector;
-                velocity = moveFoward.normalized * moveSpeed;
             }
-            else if (!isGround)
-            {
-                moveFoward = targetVector - nowVector;
-                velocity = moveFoward.normalized * moveSpeed / 2;
-            }
-            if (distance < 1000)
-            {
-                fire = true;
-            }
-            else
-            {
-                fire = false;
-            }
+            moveFoward = targetVector - nowVector;
+            velocity = moveFoward.normalized * moveSpeed;
         }
-        else if (distance < 100)//近い
+        else if (distance < 1000)//近い
         {
             if (player)
             {
@@ -168,17 +155,6 @@ public class Enemy : MonoBehaviour
             else
             {
                 fire = false;
-            }
-            if (isGround)
-            {
-                //this.transform.position += (targetpos.transform.position - transform.position) * Time.deltaTime;
-                moveFoward = nowVector - targetVector;
-                velocity = moveFoward.normalized * moveSpeed * 2;
-            }
-            else if (!isGround)
-            {
-                moveFoward = nowVector - targetVector;
-                velocity = moveFoward.normalized * moveSpeed;
             }
         }
         else
@@ -202,7 +178,7 @@ public class Enemy : MonoBehaviour
     }
     void Attack()
     {
-        if (fire == true && count >= 20)
+        if (fire == true && count >= 60)
         {
             Vector3 placePos = gun.transform.position;
 

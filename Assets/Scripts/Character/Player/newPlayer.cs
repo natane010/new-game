@@ -49,25 +49,16 @@ public class newPlayer : MonoBehaviour
     public bool isSearch;
 
     Move move = new Move();
-    CameraShake shake;
-    //DamageTime damageTime;
-    GlitchFx glitch;
-    bool hitdamage;
 
     // Start is called before the first frame update
     void Start()
     {
-        shake = Camera.main.GetComponent<CameraShake>();
-        //damageTime = Camera.main.GetComponent<DamageTime>();
-        glitch = Camera.main.GetComponent<GlitchFx>();
-        glitch.enabled = !glitch.enabled;
         //playerPosition = GetComponent<Transform>().position;
         jumpCount = 0;
         leftLegCollider = leftLeg.GetComponent<IsGround>();
         rightLegCollider = rightLeg.GetComponent<IsGround>();
         playerHP = 30000;
         searchTagName = "Enemy";
-        hitdamage = false;
     }
 
     // Update is called once per frame
@@ -126,14 +117,6 @@ public class newPlayer : MonoBehaviour
         }
         isSearch = cheakTarget.IsSearch(this.gameObject, searchTagName, searchRange, this.gameObject);
         //Debug.Log(isSearch);
-        if (hitdamage)
-        {
-            glitch.enabled = !glitch.enabled;
-        }
-        else 
-        {
-            glitch.enabled = false;
-        }
     }
     private void FixedUpdate()
     {
@@ -157,19 +140,6 @@ public class newPlayer : MonoBehaviour
     }
    public void Damege()
     {
-        float damegetime = 0.0f;
-        shake.Shake(0.5f, 0.1f);
-        //damageTime.Noise(0.5f);
-        while (damegetime < 0.5f)
-        {
-            if (!hitdamage)
-            {
-                print("kiteru");
-                hitdamage = true;
-            }
-            damegetime += Time.deltaTime;
-        }
-        Invoke("Regulation", 0.5f);
         playerHP -= 100;
         if (playerHP <= 0)
         {
@@ -180,9 +150,5 @@ public class newPlayer : MonoBehaviour
     {
         Destroy(this.gameObject);
         //爆発エフェクト入れてない
-    }
-    void Regulation()
-    {
-        hitdamage = false;
     }
 }
