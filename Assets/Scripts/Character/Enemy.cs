@@ -210,14 +210,15 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
-        count++;
-        move.MoveRb(enemyRbMain, enemyRbBackpack, velocity, isGround);
-        Attack();
         if (isObstacle)
         {
             enemyRbMain.velocity += Vector3.up * jumpPow * Time.deltaTime;
             enemyRbBackpack.velocity += Vector3.up * jumpPow * Time.deltaTime;
         }
+        count++;
+        move.MoveRb(enemyRbMain, enemyRbBackpack, velocity, isGround);
+        Attack();
+        
     }
     void Attack()
     {
