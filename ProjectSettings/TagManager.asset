@@ -9,6 +9,7 @@ TagManager:
   - playerBullet
   - enemyBullet
   - wall
+  - point
   layers:
   - Default
   - TransparentFX
@@ -27,7 +28,7 @@ TagManager:
   - EnemyGun
   - Field
   - wall
-  - 
+  - point
   - 
   - 
   - 

@@ -13,6 +13,7 @@ public class newPlayer : MonoBehaviour
     [SerializeField]
     private float limitSpeed;
     private float speed;
+    private float speedY;
     private Vector3 velocity;
     private Vector3 moveForward;
     [SerializeField]
@@ -74,6 +75,7 @@ public class newPlayer : MonoBehaviour
     void Update()
     {
         speed = player.velocity.magnitude;
+        speedY = player.velocity.y;
         velocity = Vector3.zero;
         if (Input.GetKey(KeyCode.W))
         {
@@ -141,19 +143,22 @@ public class newPlayer : MonoBehaviour
         moveForward = cameraForward * velocity.z + Camera.main.transform.right * velocity.x;
 
         velocity = moveForward * moveSpeed * Time.deltaTime;
-
         if (velocity.magnitude > 0 && speed <= limitSpeed)
         {
             move.MoveRb(rbMain, rbBackpack, velocity, isGround);
         }
-        if (Input.GetKeyDown(KeyCode.Space) && jumpCount < 3 && speed <= limitSpeed)
+        if (Input.GetKeyDown(KeyCode.Space) && speed <= limitSpeed)
         {
             move.Jump(rbBackpack, rbLegRight, rbLegLeft, jumpPow, isGround);
             boostGauge -= 5;
             jumpCount++;
         }
-
         transform.rotation = Quaternion.LookRotation(cameraForward);
+        Vector3 nowVector = player.velocity;
+        if (speed <= limitSpeed)
+        {
+            
+        }
     }
    public void Damege()
     {

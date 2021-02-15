@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class boostBend : MonoBehaviour
 {
-    float rotationSpeed = 0.5f;
+    float rotationSpeed = 0.1f;
     private Vector3 lastPos;
 
     // Start is called before the first frame update
