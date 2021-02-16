@@ -147,7 +147,7 @@ public class newPlayer : MonoBehaviour
         {
             move.MoveRb(rbMain, rbBackpack, velocity, isGround);
         }
-        if (Input.GetKeyDown(KeyCode.Space) && speed <= limitSpeed)
+        if (Input.GetKey(KeyCode.Space) && speed <= limitSpeed)
         {
             move.Jump(rbBackpack, rbLegRight, rbLegLeft, jumpPow, isGround);
             boostGauge -= 5;

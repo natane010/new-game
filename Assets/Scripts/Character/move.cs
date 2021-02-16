@@ -22,12 +22,13 @@ public class Move : MonoBehaviour
     }
     public void Jump(Rigidbody rbBackpack, Rigidbody rbLegRight, Rigidbody rbLegLeft, float jumpPow, bool isGround)
     {
-        rbBackpack.velocity = Vector3.up * jumpPow;
+        rbBackpack.velocity += Vector3.up * jumpPow * Time.deltaTime;
 
         if (isGround)
         {
-            rbLegRight.velocity += Vector3.up * jumpPow * Time.deltaTime;
-            rbLegLeft.velocity += Vector3.up * jumpPow * Time.deltaTime;
+            rbBackpack.velocity += Vector3.up * jumpPow * Time.deltaTime;
+            //rbLegRight.velocity += Vector3.up * jumpPow * Time.deltaTime;
+            //rbLegLeft.velocity += Vector3.up * jumpPow * Time.deltaTime;
         }
     }
 }
