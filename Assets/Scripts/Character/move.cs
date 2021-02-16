@@ -4,21 +4,25 @@ using UnityEngine;
 
 public class Move : MonoBehaviour
 {
-    public void MoveRb(Rigidbody rbMain, Rigidbody rbBackpack, Vector3 velocity, bool isGround)
+    public void MoveRb(Rigidbody rbMain, Rigidbody rbBackpack, Vector3 velocity, bool isGround, float limitSpeed)
     {
-        if (true)
+        Vector3 moveSpeed = rbMain.velocity;
+        if (moveSpeed.magnitude >= limitSpeed)
         {
-            if (isGround)
-            {
-                rbMain.velocity += velocity * Time.deltaTime;
-                rbBackpack.velocity += velocity * Time.deltaTime;
-            }
-            else
-            {
-                rbMain.velocity += velocity / 2 * Time.deltaTime;
-                rbBackpack.velocity += velocity / 2 * Time.deltaTime;
-            }
+            rbMain.velocity -= (moveSpeed / 2) * Time.deltaTime;
+            rbBackpack.velocity -= (moveSpeed / 2) * Time.deltaTime;
         }
+        if (isGround)
+        {
+            rbMain.velocity += velocity * Time.deltaTime;
+            rbBackpack.velocity += velocity * Time.deltaTime;
+        }
+        else
+        {
+            rbMain.velocity += velocity / 2 * Time.deltaTime;
+            rbBackpack.velocity += velocity / 2 * Time.deltaTime;
+        }
+
     }
     public void Jump(Rigidbody rbBackpack, Rigidbody rbLegRight, Rigidbody rbLegLeft, float jumpPow, bool isGround)
     {

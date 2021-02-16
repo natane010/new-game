@@ -145,7 +145,7 @@ public class newPlayer : MonoBehaviour
         velocity = moveForward * moveSpeed * Time.deltaTime;
         if (velocity.magnitude > 0 && speed <= limitSpeed)
         {
-            move.MoveRb(rbMain, rbBackpack, velocity, isGround);
+            move.MoveRb(rbMain, rbBackpack, velocity, isGround, limitSpeed);
         }
         if (Input.GetKey(KeyCode.Space) && speed <= limitSpeed)
         {

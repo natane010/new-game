@@ -18,6 +18,8 @@ public class Enemy : MonoBehaviour
 
     [SerializeField]
     private float moveSpeed;
+    [SerializeField]
+    private float limitSpeed;
 
     [SerializeField]
     GameObject targetpos;
@@ -164,7 +166,7 @@ public class Enemy : MonoBehaviour
                 moveFoward = targetVector - nowVector;
                 velocity = moveFoward.normalized * moveSpeed / 2;
             }
-            if (distance < 1000)
+            if (distance < 1000 && player)
             {
                 fire = true;
             }
@@ -216,7 +218,7 @@ public class Enemy : MonoBehaviour
             enemyRbBackpack.velocity += Vector3.up * jumpPow * Time.deltaTime;
         }
         count++;
-        move.MoveRb(enemyRbMain, enemyRbBackpack, velocity, isGround);
+        move.MoveRb(enemyRbMain, enemyRbBackpack, velocity, isGround, limitSpeed);
         Attack();
         
     }
@@ -242,7 +244,7 @@ public class Enemy : MonoBehaviour
     }
     void cheakPlayer()
     {
-        player = cheakTarget.IsSearch(this.gameObject, "Player", 100, this.gameObject);
+        player = cheakTarget.IsSearch(this.gameObject, "Player", 1000, this.gameObject);
     }
     void cheakBullet()
     {
