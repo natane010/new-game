@@ -34,7 +34,7 @@ public class ParticleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position += transform.forward * 150 * Time.deltaTime;
+        transform.position += transform.forward * 300 * Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)

@@ -5,9 +5,9 @@ using UnityEngine;
 public class newPlayer : MonoBehaviour
 {
     //Vector3 playerPosition;
-
-    [SerializeField]
     public float playerHP;
+    [SerializeField]
+    public float maxPlayerHp;
     [SerializeField]
     private Rigidbody player;
     [SerializeField]
@@ -46,7 +46,7 @@ public class newPlayer : MonoBehaviour
     [SerializeField]
     public float searchRange;
     string searchTagName = "Enemy";
-    cheakTarget cheakTarget = new cheakTarget();
+    //cheakTarget cheakTarget = new cheakTarget();
     public bool isSearch;
 
     Move move = new Move();
@@ -58,6 +58,7 @@ public class newPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerHP = maxPlayerHp * 1.0f;
         shake = Camera.main.GetComponent<CameraShake>();
         //damageTime = Camera.main.GetComponent<DamageTime>();
         glitch = Camera.main.GetComponent<GlitchFx>();
@@ -66,9 +67,9 @@ public class newPlayer : MonoBehaviour
         jumpCount = 0;
         leftLegCollider = leftLeg.GetComponent<IsGround>();
         rightLegCollider = rightLeg.GetComponent<IsGround>();
-        playerHP = 30000;
         searchTagName = "Enemy";
         hitdamage = false;
+        boostGauge = boostMaxGauge;
     }
 
     // Update is called once per frame
@@ -80,33 +81,37 @@ public class newPlayer : MonoBehaviour
         if (Input.GetKey(KeyCode.W))
         {
             velocity.z += 10.0f;
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (Input.GetKey(KeyCode.LeftShift) && boostGauge>= 0)
             {
                 velocity.z *= 5;
+                boostGauge -= 2;
             }
         }
         if (Input.GetKey(KeyCode.A))
         {
             velocity.x -= 10.0f;
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (Input.GetKey(KeyCode.LeftShift) && boostGauge >= 0)
             {
                 velocity.x *= 5;
+                boostGauge -= 2;
             }
         }
         if (Input.GetKey(KeyCode.S))
         {
             velocity.z -= 10.0f;
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (Input.GetKey(KeyCode.LeftShift) && boostGauge >= 0)
             {
                 velocity.z *= 5;
+                boostGauge -= 2;
             }
         }
         if (Input.GetKey(KeyCode.D))
         {
             velocity.x += 10.0f;
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (Input.GetKey(KeyCode.LeftShift) && boostGauge >= 0)
             {
                 velocity.x *= 5;
+                boostGauge -= 2;
             }
         }
         if (leftLegCollider.collider1 && rightLegCollider.collider1 || leftLegCollider.collider1 && !rightLegCollider.collider1 || !leftLegCollider.collider1 && rightLegCollider.collider1)
@@ -118,15 +123,11 @@ public class newPlayer : MonoBehaviour
         {
             isGround = false;
         }
-        if (isGround && boostGauge < boostMaxGauge)
+        if (boostGauge < boostMaxGauge)
         {
             boostGauge++;
         }
-        else if (boostGauge < boostMaxGauge)
-        {
-            boostGauge += 0.1f;
-        }
-        isSearch = cheakTarget.IsSearch(this.gameObject, searchTagName, searchRange, this.gameObject);
+        //isSearch = cheakTarget.IsSearch(this.gameObject, searchTagName, searchRange, this.gameObject);
         //Debug.Log(isSearch);
         if (hitdamage)
         {
@@ -143,11 +144,18 @@ public class newPlayer : MonoBehaviour
         moveForward = cameraForward * velocity.z + Camera.main.transform.right * velocity.x;
 
         velocity = moveForward * moveSpeed * Time.deltaTime;
+        Vector3 moveRbSpeed = rbMain.velocity;
+
+        if (moveRbSpeed.magnitude >= limitSpeed)
+        {
+            rbMain.velocity -= (moveRbSpeed / 2) * Time.deltaTime;
+            rbBackpack.velocity -= (moveRbSpeed / 2) * Time.deltaTime;
+        }
         if (velocity.magnitude > 0 && speed <= limitSpeed)
         {
             move.MoveRb(rbMain, rbBackpack, velocity, isGround, limitSpeed);
         }
-        if (Input.GetKey(KeyCode.Space) && speed <= limitSpeed)
+        if (Input.GetKey(KeyCode.Space) && speed <= limitSpeed && boostGauge >= 0)
         {
             move.Jump(rbBackpack, rbLegRight, rbLegLeft, jumpPow, isGround);
             boostGauge -= 5;
@@ -155,10 +163,6 @@ public class newPlayer : MonoBehaviour
         }
         transform.rotation = Quaternion.LookRotation(cameraForward);
         Vector3 nowVector = player.velocity;
-        if (speed <= limitSpeed)
-        {
-            
-        }
     }
    public void Damege()
     {
@@ -175,7 +179,7 @@ public class newPlayer : MonoBehaviour
             damegetime += Time.deltaTime;
         }
         Invoke("Regulation", 0.5f);
-        playerHP -= 100;
+        playerHP -= 1000;
         if (playerHP <= 0)
         {
             Lose();
@@ -183,7 +187,8 @@ public class newPlayer : MonoBehaviour
     }
     void Lose()
     {
-        Destroy(this.gameObject);
+        this.gameObject.SetActive(false);
+        //Destroy(this.gameObject);
         //爆発エフェクト入れてない
     }
     void Regulation()

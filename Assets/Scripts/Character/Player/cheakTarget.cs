@@ -66,21 +66,19 @@ public class cheakTarget : MonoBehaviour
         return nearTargetObj;
     }
 
-    public bool IsSearch(GameObject nowObj, string tag, float searchR, GameObject rayOrigin)
+    public bool IsSearch(GameObject nowObj, string tag, float searchR, GameObject rayOrigin, GameObject target)
     {
         bool isHit = false;
         if (Search(nowObj, tag, searchR))
         {
             RaycastHit hit;
 
-            GameObject target = Search(nowObj, tag, searchR);
-
             Vector3 objR = target.transform.position - rayOrigin.transform.position;
             //方向ベクトル
             Vector3 direction = objR.normalized;
             
             int layMask = LayerMask.GetMask(tag,"Field");
-            if (Physics.Raycast(rayOrigin.transform.position, direction, out hit, searchR))
+            if (Physics.Raycast(rayOrigin.transform.position, direction, out hit, searchR, layMask))
             {
                 //Debug.Log(target);
                 //Debug.Log(hit.transform.gameObject);

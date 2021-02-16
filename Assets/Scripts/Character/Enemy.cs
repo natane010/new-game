@@ -83,7 +83,8 @@ public class Enemy : MonoBehaviour
     bool isObstacle;
     [SerializeField]
     float jumpPow;
-
+    [SerializeField]
+    GameObject targetObj;
     // Start is called before the first frame update
     void Start()
     {
@@ -153,12 +154,13 @@ public class Enemy : MonoBehaviour
         //距離によって移動・攻撃切り替える。
         targetVector = target.transform.position;
         nowVector = this.transform.position;
-        if (distance > 100)//遠い
+        if (distance > 200)//遠い
         {
             if (isGround)
             {
                 //this.transform.position += (targetpos.transform.position - transform.position) * Time.deltaTime;
                 moveFoward = targetVector - nowVector;
+                moveFoward.y = 0;
                 velocity = moveFoward.normalized * moveSpeed;
             }
             else if (!isGround)
@@ -175,7 +177,7 @@ public class Enemy : MonoBehaviour
                 fire = false;
             }
         }
-        else if (distance < 100)//近い
+        else if (distance < 200 && distance > 100)//近い
         {
             if (player)
             {
@@ -188,7 +190,24 @@ public class Enemy : MonoBehaviour
             if (isGround)
             {
                 //this.transform.position += (targetpos.transform.position - transform.position) * Time.deltaTime;
+                moveFoward = targetVector - nowVector;
+                moveFoward.y = 0;
+                velocity = moveFoward.normalized * moveSpeed / 5;
+            }
+            else if (!isGround)
+            {
+                moveFoward = targetVector - nowVector;
+                velocity = moveFoward.normalized * moveSpeed / 10;
+            }
+        }
+        else if (distance <= 100)
+        {
+            fire = true;
+            if (isGround)
+            {
+                //this.transform.position += (targetpos.transform.position - transform.position) * Time.deltaTime;
                 moveFoward = nowVector - targetVector;
+                moveFoward.y = 0;
                 velocity = moveFoward.normalized * moveSpeed * 2;
             }
             else if (!isGround)
@@ -199,19 +218,18 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            if (player)
-            {
-                fire = true;
-            }
-            else
-            {
-                fire = false;
-            }
+            fire = false;
         }
     }
 
     private void FixedUpdate()
     {
+        Vector3 moveRbSpeed = enemyRbMain.velocity;
+        if (moveRbSpeed.magnitude >= limitSpeed)
+        {
+            enemyRbMain.velocity -= (moveRbSpeed / 2) * Time.deltaTime;
+            enemyRbBackpack.velocity -= (moveRbSpeed / 2) * Time.deltaTime;
+        }
         if (isObstacle)
         {
             enemyRbMain.velocity += Vector3.up * jumpPow * Time.deltaTime;
@@ -224,7 +242,7 @@ public class Enemy : MonoBehaviour
     }
     void Attack()
     {
-        if (fire == true && count >= 20)
+        if (fire == true && count >= 20.0f)
         {
             Vector3 placePos = gun.transform.position;
 
@@ -244,11 +262,11 @@ public class Enemy : MonoBehaviour
     }
     void cheakPlayer()
     {
-        player = cheakTarget.IsSearch(this.gameObject, "Player", 1000, this.gameObject);
+        player = cheakTarget.IsSearch(this.gameObject, "Player", 1000, this.gameObject, targetObj);
     }
     void cheakBullet()
     {
-        playerBullet = cheakTarget.IsSearch(this.gameObject, "Bullet", 1000, this.gameObject);
+       // playerBullet = cheakTarget.IsSearch(this.gameObject, "Bullet", 1000, this.gameObject);
     }
     public void Damage()
     {    

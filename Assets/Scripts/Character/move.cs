@@ -6,12 +6,6 @@ public class Move : MonoBehaviour
 {
     public void MoveRb(Rigidbody rbMain, Rigidbody rbBackpack, Vector3 velocity, bool isGround, float limitSpeed)
     {
-        Vector3 moveSpeed = rbMain.velocity;
-        if (moveSpeed.magnitude >= limitSpeed)
-        {
-            rbMain.velocity -= (moveSpeed / 2) * Time.deltaTime;
-            rbBackpack.velocity -= (moveSpeed / 2) * Time.deltaTime;
-        }
         if (isGround)
         {
             rbMain.velocity += velocity * Time.deltaTime;

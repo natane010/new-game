@@ -901,7 +901,7 @@ GameObject:
   - component: {fileID: 504770666}
   - component: {fileID: 504770665}
   m_Layer: 5
-  m_Name: HP
+  m_Name: HPGauge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -916,7 +916,7 @@ RectTransform:
   m_GameObject: {fileID: 504770663}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 3, y: 3, z: 0}
   m_Children: []
   m_Father: {fileID: 995446173}
   m_RootOrder: 3
@@ -2101,6 +2101,7 @@ RectTransform:
   - {fileID: 1192710362}
   - {fileID: 1251007314}
   - {fileID: 504770664}
+  - {fileID: 1943664897}
   m_Father: {fileID: 1863577981}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2432,6 +2433,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1167999753}
   - component: {fileID: 1167999754}
+  - component: {fileID: 1167999756}
+  - component: {fileID: 1167999755}
   m_Layer: 0
   m_Name: gameControl
   m_TagString: GameController
@@ -2465,6 +2468,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfadfc4d664346d43b2e6fb4962d1176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1167999755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167999752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8546c7e18c8ba546b3be6f827b2be0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1167999756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167999752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06b6b0a2da26987438a9e73d238d2a9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gaugeHp: {fileID: 504770663}
+  player: {fileID: 666243362}
+  gaugeBo: {fileID: 1943664896}
 --- !u!1 &1170960126 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1755169587655136, guid: c0a13742618afdb4cb2d9e33d51eac24,
@@ -3330,12 +3360,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 0ed37f148e3166d42b0d653a3ba63eba, type: 3}
---- !u!1 &1682067141 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5986679501095394206, guid: 476a4a09371de0c47a2be13efc3c9a40,
-    type: 3}
-  m_PrefabInstance: {fileID: 6905597780609948817}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1764908992
 GameObject:
   m_ObjectHideFlags: 0
@@ -3670,6 +3694,80 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5450066227726219810, guid: 66f76f2d0edaf42458a3213df420e98d, type: 3}
+--- !u!1 &1943664896
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1943664897}
+  - component: {fileID: 1943664899}
+  - component: {fileID: 1943664898}
+  m_Layer: 5
+  m_Name: BoostGauge
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1943664897
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943664896}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 3, y: 3, z: 0}
+  m_Children: []
+  m_Father: {fileID: 995446173}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 788, y: -41}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1943664898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943664896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 73e2059d2f583224989ad263d6f82b7b, type: 3}
+  m_Type: 3
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 2
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1943664899
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943664896}
+  m_CullTransparentMesh: 0
 --- !u!1 &1997001330
 GameObject:
   m_ObjectHideFlags: 0
@@ -3697,14 +3795,14 @@ RectTransform:
   m_GameObject: {fileID: 1997001330}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 92}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children: []
   m_Father: {fileID: 995446173}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2, y: 274}
+  m_AnchoredPosition: {x: 0.000015259, y: 284}
   m_SizeDelta: {x: 356.125, y: 345.52844}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1997001332
@@ -3726,7 +3824,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bfdd54786a4f1224e9a21ab139ca82b8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 297dd56414e101147bbc07e13d479d02, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -3937,7 +4035,7 @@ PrefabInstance:
         type: 3}
       propertyPath: targetpos
       value: 
-      objectReference: {fileID: 1682067141}
+      objectReference: {fileID: 666243362}
     - target: {fileID: 3759362538191457019, guid: 7b0f9c3419c9d154d8f93e7e0deb563a,
         type: 3}
       propertyPath: jumpPow
@@ -3953,6 +4051,11 @@ PrefabInstance:
       propertyPath: limitSpeed
       value: 500
       objectReference: {fileID: 0}
+    - target: {fileID: 3759362538191457019, guid: 7b0f9c3419c9d154d8f93e7e0deb563a,
+        type: 3}
+      propertyPath: targetObj
+      value: 
+      objectReference: {fileID: 666243362}
     - target: {fileID: 3759362538191457020, guid: 7b0f9c3419c9d154d8f93e7e0deb563a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4022,6 +4125,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5986679501095394206, guid: 476a4a09371de0c47a2be13efc3c9a40,
+        type: 3}
+      propertyPath: m_Name
+      value: PlayerBot
+      objectReference: {fileID: 0}
     - target: {fileID: 6905597780471930081, guid: 476a4a09371de0c47a2be13efc3c9a40,
         type: 3}
       propertyPath: m_CollisionDetection
@@ -4081,6 +4189,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905597782316798850, guid: 476a4a09371de0c47a2be13efc3c9a40,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6905597782316798853, guid: 476a4a09371de0c47a2be13efc3c9a40,
         type: 3}
@@ -4151,6 +4264,21 @@ PrefabInstance:
         type: 3}
       propertyPath: limitSpeed
       value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905597782316798855, guid: 476a4a09371de0c47a2be13efc3c9a40,
+        type: 3}
+      propertyPath: maxPlayerHp
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905597782316798855, guid: 476a4a09371de0c47a2be13efc3c9a40,
+        type: 3}
+      propertyPath: hpGauge
+      value: 
+      objectReference: {fileID: 504770663}
+    - target: {fileID: 6905597782316798855, guid: 476a4a09371de0c47a2be13efc3c9a40,
+        type: 3}
+      propertyPath: boostMaxGauge
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 476a4a09371de0c47a2be13efc3c9a40, type: 3}
