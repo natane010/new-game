@@ -84,7 +84,7 @@ public class newPlayer : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftShift) && boostGauge>= 0)
             {
                 velocity.z *= 5;
-                boostGauge -= 2;
+                boostGauge -= 1;
             }
         }
         if (Input.GetKey(KeyCode.A))
@@ -93,7 +93,7 @@ public class newPlayer : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftShift) && boostGauge >= 0)
             {
                 velocity.x *= 5;
-                boostGauge -= 2;
+                boostGauge -= 1;
             }
         }
         if (Input.GetKey(KeyCode.S))
@@ -102,7 +102,7 @@ public class newPlayer : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftShift) && boostGauge >= 0)
             {
                 velocity.z *= 5;
-                boostGauge -= 2;
+                boostGauge -= 1;
             }
         }
         if (Input.GetKey(KeyCode.D))
@@ -111,7 +111,7 @@ public class newPlayer : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftShift) && boostGauge >= 0)
             {
                 velocity.x *= 5;
-                boostGauge -= 2;
+                boostGauge -= 1;
             }
         }
         if (leftLegCollider.collider1 && rightLegCollider.collider1 || leftLegCollider.collider1 && !rightLegCollider.collider1 || !leftLegCollider.collider1 && rightLegCollider.collider1)
@@ -122,10 +122,6 @@ public class newPlayer : MonoBehaviour
         else
         {
             isGround = false;
-        }
-        if (boostGauge < boostMaxGauge)
-        {
-            boostGauge++;
         }
         //isSearch = cheakTarget.IsSearch(this.gameObject, searchTagName, searchRange, this.gameObject);
         //Debug.Log(isSearch);
@@ -140,6 +136,12 @@ public class newPlayer : MonoBehaviour
     }
     private void FixedUpdate()
     {
+        if (boostGauge < boostMaxGauge)
+        {
+            boostGauge += 5;
+            print("kiteru");
+        }
+
         Vector3 cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
         moveForward = cameraForward * velocity.z + Camera.main.transform.right * velocity.x;
 
@@ -159,7 +161,6 @@ public class newPlayer : MonoBehaviour
         {
             move.Jump(rbBackpack, rbLegRight, rbLegLeft, jumpPow, isGround);
             boostGauge -= 5;
-            jumpCount++;
         }
         transform.rotation = Quaternion.LookRotation(cameraForward);
         Vector3 nowVector = player.velocity;

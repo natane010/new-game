@@ -22,6 +22,11 @@ public class GaugeController : MonoBehaviour
     float currentHp;
     float ratioHp;
 
+    float nowBoost;
+    float maxBoost;
+    float currentBoost;
+    float ratioBoost;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +35,8 @@ public class GaugeController : MonoBehaviour
         imageBo = gaugeBo.GetComponent<Image>();
         lastHp = playerSc.playerHP * 1.000f;
         ratioHp = playerSc.playerHP / playerSc.maxPlayerHp * 1.000f;
+        ratioBoost = playerSc.boostGauge / playerSc.boostMaxGauge * 1.000f;
+        maxBoost = playerSc.boostMaxGauge * 1.000f;
     }
 
     // Update is called once per frame
@@ -54,6 +61,24 @@ public class GaugeController : MonoBehaviour
         {
             imageHp.fillAmount -= 0.01f * Time.deltaTime;
         }
+        nowBoost = playerSc.boostGauge * 1.000f;
+        currentBoost = nowBoost / maxBoost * 1.000f;
+        if (imageBo.fillAmount < currentHp)
+        {
+            imageBo.fillAmount -= 0.01f * Time.deltaTime;
+        }
+        if (imageBo.fillAmount > 0.5f)
+        {
+            imageBo.color = Color.white;
+        }
+        else if (imageBo.fillAmount > 0.2f)
+        {
+            imageBo.color = new Color(1f, 0.67f, 0f);
+        }
+        else
+        {
+            imageBo.color = Color.red;
+        }
     }
     private void FixedUpdate()
     {
@@ -62,6 +87,19 @@ public class GaugeController : MonoBehaviour
             ratioHp -= 0.1f * Time.deltaTime;
         }
         imageHp.fillAmount = ratioHp;
+        if (imageHp.fillAmount <= 0)
+        {
+            Lose();
+        }
+        if (ratioBoost >= 0 && currentBoost < ratioBoost)
+        {
+            ratioBoost -= 0.1f * Time.deltaTime;
+        }
+        else if (currentBoost > ratioBoost)
+        {
+            ratioBoost += 0.1f * Time.deltaTime;
+        }
+        imageBo.fillAmount = ratioBoost;
     }
     void Lose()
     {

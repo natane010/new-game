@@ -6,13 +6,14 @@ public class taegetPoint : MonoBehaviour
 {
     [SerializeField]
     GameObject target;
-
+    [SerializeField]
+    string targetName;
     //Vector3 latepos;
     //float y;
     // Start is called before the first frame update
     void Start()
     {
-        //y = this.transform.position.y;
+        target = GameObject.Find(targetName);
     }
 
     // Update is called once per frame
@@ -23,6 +24,10 @@ public class taegetPoint : MonoBehaviour
             //latepos = target.transform.position;
             //latepos.y = y;
             this.gameObject.transform.position = target.transform.position;
+        }
+        else if (!target)
+        {
+            Destroy(this.gameObject);
         }
     }
 }
