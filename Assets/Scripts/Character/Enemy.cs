@@ -10,6 +10,8 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     public float enemyHP;
     [SerializeField]
+    public float enemyMaxHp;
+    [SerializeField]
     public Rigidbody target;
     [SerializeField]
     private Rigidbody enemyRbBackpack;
@@ -19,7 +21,8 @@ public class Enemy : MonoBehaviour
     private Rigidbody enemyRbLegLeft;
     [SerializeField]
     private Rigidbody enemyRbMain;
-
+    [SerializeField]
+    GameObject ray;
     [SerializeField]
     private float moveSpeed;
     [SerializeField]
@@ -87,6 +90,7 @@ public class Enemy : MonoBehaviour
     float jumpPow;
     [SerializeField]
     GameObject targetObj;
+    public List<GameObject> compositionObj;
     // Start is called before the first frame update
     void Start()
     {
@@ -98,6 +102,7 @@ public class Enemy : MonoBehaviour
         enemyLeftLegPegCollider = enemyleftLegPeg.GetComponent<IsGround>();
         enemyrightLegCollider = enemyrightLegPeg.GetComponent<IsGround>();
         gameController = game.GetComponent<GameController>();
+        compositionObj = new List<GameObject>();
     }
 
     // Update is called once per frame
@@ -105,7 +110,7 @@ public class Enemy : MonoBehaviour
     {
         Vector3 front = this.gameObject.transform.forward;
         int layMask = ~(1 << 9);
-        if (Physics.Raycast(this.gameObject.transform.position, front, 10.0f, layMask))
+        if (Physics.Raycast(ray.transform.position, front, 10.0f, layMask))
         {
             isObstacle = true;
         }
@@ -120,27 +125,31 @@ public class Enemy : MonoBehaviour
                 var parent = this.transform;
                 var electpos = enemyRbMain.transform.position;
                 electpos.y -= 3; 
-                Instantiate(elect, electpos, Quaternion.identity, parent);
-
+                var a = Instantiate(elect, electpos, Quaternion.identity, parent);
+                compositionObj.Add(a);
                 hpCheak = true;
             }
             if (effectCheak == false)
             {
                 if (electCount == 0 || electCount == 1)
                 {
-                    Instantiate(elect1, enemyleftLeg.transform.position, Quaternion.identity);
+                    var a = Instantiate(elect1, enemyleftLeg.transform.position, Quaternion.identity);
+                    compositionObj.Add(a);
                 }
                 else if (electCount == 1)
                 {
-                    Instantiate(elect2, enemyrightLeg.transform.position, Quaternion.identity);
+                    var a = Instantiate(elect2, enemyrightLeg.transform.position, Quaternion.identity);
+                    compositionObj.Add(a);
                 }
                 else if (electCount == 2)
                 {
-                    Instantiate(elect3, enemyRbBackpack.transform.position, Quaternion.identity);
+                    var a = Instantiate(elect3, enemyRbBackpack.transform.position, Quaternion.identity);
+                    compositionObj.Add(a);
                 }
                 else if (electCount == 3)
                 {
-                    Instantiate(elect4, enemyRbMain.transform.position, Quaternion.identity);
+                    var a = Instantiate(elect4, enemyRbMain.transform.position, Quaternion.identity);
+                    compositionObj.Add(a);
                 }
                 else
                 {
@@ -152,8 +161,10 @@ public class Enemy : MonoBehaviour
         }
         else if (enemyHP <= 0)
         {
-            Instantiate(elect, enemyRbMain.transform.position, Quaternion.identity);
-            Instantiate(explosion, enemyRbBackpack.transform.position, Quaternion.identity);
+            var a = Instantiate(elect, enemyRbMain.transform.position, Quaternion.identity);
+            var b = Instantiate(explosion, enemyRbBackpack.transform.position, Quaternion.identity);
+            compositionObj.Add(a);
+            compositionObj.Add(b);
             gameController.EnemyDead();
             this.gameObject.SetActive(false);
         }
@@ -176,18 +187,26 @@ public class Enemy : MonoBehaviour
         //距離によって移動・攻撃切り替える。
         targetVector = target.transform.position;
         nowVector = this.transform.position;
-        if (distance > 200)//遠い
+        if (distance > 500)//遠い
         {
             if (isGround)
             {
                 //this.transform.position += (targetpos.transform.position - transform.position) * Time.deltaTime;
                 moveFoward = targetVector - nowVector;
-                moveFoward.y = 0;
+                if (moveFoward.y < 0)
+                {
+                    moveFoward.y = 0;
+                }
+                
                 velocity = moveFoward.normalized * moveSpeed;
             }
             else if (!isGround)
             {
                 moveFoward = targetVector - nowVector;
+                if (moveFoward.y < 0)
+                {
+                    moveFoward.y = moveFoward.y / 5;
+                }
                 velocity = moveFoward.normalized * moveSpeed / 2;
             }
             if (distance < 1000 && player)
@@ -199,7 +218,7 @@ public class Enemy : MonoBehaviour
                 fire = false;
             }
         }
-        else if (distance < 200 && distance > 100)//近い
+        else if (distance < 500 && distance > 100)//近い
         {
             if (player)
             {
@@ -213,12 +232,19 @@ public class Enemy : MonoBehaviour
             {
                 //this.transform.position += (targetpos.transform.position - transform.position) * Time.deltaTime;
                 moveFoward = targetVector - nowVector;
-                moveFoward.y = 0;
+                if (moveFoward.y < 0)
+                {
+                    moveFoward.y = 0;
+                }
                 velocity = moveFoward.normalized * moveSpeed / 5;
             }
             else if (!isGround)
             {
                 moveFoward = targetVector - nowVector;
+                if (moveFoward.y < 0)
+                {
+                    moveFoward.y = moveFoward.y / 5;
+                }
                 velocity = moveFoward.normalized * moveSpeed / 10;
             }
         }
@@ -240,8 +266,9 @@ public class Enemy : MonoBehaviour
         }
         else
         {
-            fire = false;
+            fire = true;
         }
+        //fire = true;
     }
 
     private void FixedUpdate()
@@ -267,10 +294,16 @@ public class Enemy : MonoBehaviour
         if (fire == true && count >= 20.0f)
         {
             Vector3 placePos = gun.transform.position;
-
+            
             Vector3 angle = transform.eulerAngles;
             angle.x -= 90.0f;
             Quaternion q1 = transform.rotation * Quaternion.Euler(0, 0, 0);
+            //----------------------------------------
+            //Vector3 targetVector = target.transform.position;
+            //Vector3 vector = targetVector - transform.position;
+            //Quaternion q1 = Quaternion.Euler(vector) * transform.rotation;
+            //----------------------------------------
+
             Instantiate(bullet, placePos, q1);
             audioSource2.PlayOneShot(canon);
             count = 0;
@@ -279,12 +312,12 @@ public class Enemy : MonoBehaviour
     void Rotation()
     {
         //a.y = this.transform.position.y;
-        Vector3 a = targetpos.transform.position;
+        Vector3 a = targetpos.transform.position + target.velocity;
         transform.LookAt(a);
     }
     void cheakPlayer()
     {
-        player = cheakTarget.IsSearch(this.gameObject, "Player", 1000, this.gameObject, targetObj);
+        player = cheakTarget.IsSearch(this.gameObject, "Player", 5000, ray, targetObj);
     }
     void cheakBullet()
     {
@@ -292,7 +325,7 @@ public class Enemy : MonoBehaviour
     }
     public void Damage()
     {    
-        enemyHP -= 2500;
+        enemyHP -= 2000;
     }
     public void EffectEnd()
     {

@@ -10,7 +10,7 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] 
     private float distance = 4.0f; // distance from following object
     [SerializeField] 
-    private float polarAngle = 45.0f; // angle with y-axis
+    private float polarAngle = 60.0f; // angle with y-axis
     [SerializeField] 
     private float azimuthalAngle = 45.0f; // angle with x-axis
     [SerializeField] 
@@ -18,9 +18,9 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] 
     private float maxDistance = 7.0f;
     [SerializeField] 
-    private float minPolarAngle = -75.0f;
+    private float minPolarAngle = 0.0f;
     [SerializeField] 
-    private float maxPolarAngle = 75.0f;
+    private float maxPolarAngle = 60.0f;
     [SerializeField] 
     private float mouseXSensitivity = 5.0f;
     [SerializeField] 
@@ -38,13 +38,15 @@ public class PlayerCamera : MonoBehaviour
     void Update()
     {
         var lookAtPos = playerObs.transform.position + offset;
-        updatePosition(lookAtPos);
-        transform.LookAt(lookAtPos);
+        //updatePosition(lookAtPos);
+        //transform.LookAt(lookAtPos);
         if (true) //(Input.GetMouseButton(0))
         {
             updateAngle(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
         }
         //updateDistance(Input.GetAxis("Mouse ScrollWheel"));
+        updatePosition(lookAtPos);
+        transform.LookAt(lookAtPos);
     }
 
     private void updateAngle(float x, float y)

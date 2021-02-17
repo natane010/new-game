@@ -152,7 +152,7 @@ public class newPlayer : MonoBehaviour
         velocity = moveForward * moveSpeed * Time.deltaTime;
         Vector3 moveRbSpeed = rbMain.velocity;
 
-        if (moveRbSpeed.magnitude >= limitSpeed)
+        if (moveRbSpeed.magnitude > limitSpeed || speed > limitSpeed)
         {
             rbMain.velocity -= (moveRbSpeed / 2) * Time.deltaTime;
             rbBackpack.velocity -= (moveRbSpeed / 2) * Time.deltaTime;

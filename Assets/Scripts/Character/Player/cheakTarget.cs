@@ -78,6 +78,7 @@ public class cheakTarget : MonoBehaviour
             Vector3 direction = objR.normalized;
             
             int layMask = LayerMask.GetMask(tag,"Field");
+            layMask = 1 << 8 | 1 << 15;
             if (Physics.Raycast(rayOrigin.transform.position, direction, out hit, searchR, layMask))
             {
                 //Debug.Log(target);

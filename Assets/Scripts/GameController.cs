@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
     [SerializeField]
     public GameObject enemyObj;
     public Enemy enemy;
+    AudioSource enemySound;
     Vector3 startEnemyPos;
     public bool isEnemy;
     float count;
@@ -22,6 +23,7 @@ public class GameController : MonoBehaviour
         enemyObj = GameObject.Find("Enemy");
         playerBackPack = GameObject.Find("Backpack");
         playerBackPackRb = playerBackPack.GetComponent<Rigidbody>();
+        enemySound = enemyObj.GetComponent<AudioSource>();
         enemy = enemyObj.GetComponent<Enemy>();
         enemy.target = playerBackPackRb;
         startEnemyPos = enemyObj.transform.position;
@@ -36,13 +38,20 @@ public class GameController : MonoBehaviour
         if (isEnemy)
         {
             count += Time.deltaTime;
-            if (count < 5.00f)
+            if (count > 5.00f)
             {
                 isEnemy = false;
-                enemy.enemyHP = 10000.000f;
+                enemy.enemyHP = enemy.enemyMaxHp;
                 enemyObj.transform.position = startEnemyPos;
+                foreach (var item in enemy.compositionObj)
+                {
+                    Destroy(item);
+                }
+                enemySound.enabled = false;
+                enemy.compositionObj = new List<GameObject>();
                 enemyObj.SetActive(true);
                 count = 0;
+                enemySound.enabled = true;
             }
         }
     }
