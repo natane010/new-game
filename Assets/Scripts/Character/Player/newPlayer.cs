@@ -54,6 +54,9 @@ public class newPlayer : MonoBehaviour
     //DamageTime damageTime;
     GlitchFx glitch;
     bool hitdamage;
+    [SerializeField]
+    AudioClip biribiri;
+    AudioSource audiobiribiri;
 
     // Start is called before the first frame update
     void Start()
@@ -70,6 +73,7 @@ public class newPlayer : MonoBehaviour
         searchTagName = "Enemy";
         hitdamage = false;
         boostGauge = boostMaxGauge;
+        audiobiribiri = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -164,6 +168,10 @@ public class newPlayer : MonoBehaviour
         }
         transform.rotation = Quaternion.LookRotation(cameraForward);
         Vector3 nowVector = player.velocity;
+        if (playerHP <= maxPlayerHp / 2)
+        {
+            audiobiribiri.PlayOneShot(biribiri);
+        }
     }
    public void Damege()
     {
@@ -174,7 +182,7 @@ public class newPlayer : MonoBehaviour
         {
             if (!hitdamage)
             {
-                print("kiteru");
+                //print("kiteru");
                 hitdamage = true;
             }
             damegetime += Time.deltaTime;

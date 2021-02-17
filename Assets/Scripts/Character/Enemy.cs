@@ -4,9 +4,13 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField]
+    GameObject game;
+
+    GameController gameController;
+    [SerializeField]
     public float enemyHP;
     [SerializeField]
-    Rigidbody target;
+    public Rigidbody target;
     [SerializeField]
     private Rigidbody enemyRbBackpack;
     [SerializeField]
@@ -43,13 +47,11 @@ public class Enemy : MonoBehaviour
     private Vector3 velocity;
     private Vector3 forward;
     private Quaternion rotation;
-
-    private float x;
-    private float y;
-    private float z;
+    private Vector3 startPos;
 
     bool fire;
     float count = 0;
+    float electCount = 0;
     [SerializeField]
     GameObject bullet;
     [SerializeField]
@@ -88,12 +90,14 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        startPos = this.transform.position;
         enemyPos = GetComponent<Rigidbody>().position;
         audioSource2 = GetComponent<AudioSource>();
         enemyleftLegCollider = enemyleftLeg.GetComponent<IsGround>();
         enemyrightLegCollider = enemyrightLeg.GetComponent<IsGround>();
         enemyLeftLegPegCollider = enemyleftLegPeg.GetComponent<IsGround>();
         enemyrightLegCollider = enemyrightLegPeg.GetComponent<IsGround>();
+        gameController = game.GetComponent<GameController>();
     }
 
     // Update is called once per frame
@@ -122,10 +126,27 @@ public class Enemy : MonoBehaviour
             }
             if (effectCheak == false)
             {
-                Instantiate(elect1, enemyleftLeg.transform.position, Quaternion.identity);
-                Instantiate(elect2, enemyrightLeg.transform.position, Quaternion.identity);
-                Instantiate(elect3, enemyRbBackpack.transform.position, Quaternion.identity);
-                Instantiate(elect4, enemyRbMain.transform.position, Quaternion.identity);
+                if (electCount == 0 || electCount == 1)
+                {
+                    Instantiate(elect1, enemyleftLeg.transform.position, Quaternion.identity);
+                }
+                else if (electCount == 1)
+                {
+                    Instantiate(elect2, enemyrightLeg.transform.position, Quaternion.identity);
+                }
+                else if (electCount == 2)
+                {
+                    Instantiate(elect3, enemyRbBackpack.transform.position, Quaternion.identity);
+                }
+                else if (electCount == 3)
+                {
+                    Instantiate(elect4, enemyRbMain.transform.position, Quaternion.identity);
+                }
+                else
+                {
+                    electCount = 0;
+                }
+                electCount += Time.deltaTime;
                 effectCheak = true;
             }
         }
@@ -133,7 +154,8 @@ public class Enemy : MonoBehaviour
         {
             Instantiate(elect, enemyRbMain.transform.position, Quaternion.identity);
             Instantiate(explosion, enemyRbBackpack.transform.position, Quaternion.identity);
-            Destroy(this.gameObject);
+            gameController.EnemyDead();
+            this.gameObject.SetActive(false);
         }
         cheakPlayer();
         //cheakBullet();
@@ -270,7 +292,7 @@ public class Enemy : MonoBehaviour
     }
     public void Damage()
     {    
-        enemyHP -= 3000;
+        enemyHP -= 2500;
     }
     public void EffectEnd()
     {
