@@ -18,7 +18,7 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] 
     private float maxDistance = 7.0f;
     [SerializeField] 
-    private float minPolarAngle = 5.0f;
+    private float minPolarAngle = -75.0f;
     [SerializeField] 
     private float maxPolarAngle = 75.0f;
     [SerializeField] 

@@ -20,7 +20,7 @@ public class GameController : MonoBehaviour
     {
         playerObj = GameObject.Find("Player");
         enemyObj = GameObject.Find("Enemy");
-        playerBackPack = transform.Find("Backpack").gameObject;
+        playerBackPack = GameObject.Find("Backpack");
         playerBackPackRb = playerBackPack.GetComponent<Rigidbody>();
         enemy = enemyObj.GetComponent<Enemy>();
         enemy.target = playerBackPackRb;

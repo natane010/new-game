@@ -7,6 +7,8 @@ public class newCamera : MonoBehaviour
     GameObject mainCamera;
     GameObject Player;
     public float rotateSpeed = 1.0f;
+    float distance = 7.0f;
+    float distanceLimit = 7.0f;
 
     private Vector3 lastMousePosition;
     private Vector3 newAngle = new Vector3(0, 0, 0);
@@ -15,25 +17,19 @@ public class newCamera : MonoBehaviour
     void Start()
     {
         this.mainCamera = Camera.main.gameObject;
-        this.Player = GameObject.Find("Player");
+        Player = GameObject.Find("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            newAngle = mainCamera.transform.localEulerAngles;
-            lastMousePosition = Input.mousePosition;
-        }
-        else if (Input.GetMouseButton(0))
-        {
-            rotateCamera();
-        }
+        distance = (Player.transform.position - mainCamera.transform.position).magnitude;
+
+        float x = Input.GetAxis("MouseX");
+        float y = Input.GetAxis("MouseY");
     }
     private void rotateCamera()
     {
-        Vector3 angle = new Vector3(Input.GetAxis("Mouse X") * this.rotateSpeed, 0, 0);
-        this.mainCamera.transform.RotateAround(this.Player.transform.position, Vector3.up, angle.x);
+        
     }
 }
