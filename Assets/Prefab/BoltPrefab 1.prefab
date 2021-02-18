@@ -225,6 +225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bolt: {fileID: 8300000, guid: e19a515887bbe2e409fde78883b2f024, type: 3}
+  enemyob: {fileID: 215788795621446854, guid: 7b0f9c3419c9d154d8f93e7e0deb563a, type: 3}
 --- !u!82 &9122268923775688735
 AudioSource:
   m_ObjectHideFlags: 0

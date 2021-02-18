@@ -14,9 +14,9 @@ public class burstDamage : MonoBehaviour
     Enemy enemy;
     private void Awake()
     {
-        obj = GameObject.Find("Enemy");
+        //obj = GameObject.Find("Enemy");
         audioSource = GetComponent<AudioSource>();
-        enemy = obj.GetComponent<Enemy>();
+        //enemy = obj.GetComponent<Enemy>();
     }
     // Start is called before the first frame update
     void Start()
@@ -32,8 +32,8 @@ public class burstDamage : MonoBehaviour
 
     private void OnParticleSystemStopped()
     {
-        Debug.Log("kiteru");
-        enemy.EffectEnd();
+        //Debug.Log("kiteru");
+        //enemy.EffectEnd();
         Destroy(this.gameObject);
     }
 }

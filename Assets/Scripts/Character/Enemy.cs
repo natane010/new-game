@@ -136,28 +136,30 @@ public class Enemy : MonoBehaviour
                     var a = Instantiate(elect1, enemyleftLeg.transform.position, Quaternion.identity);
                     compositionObj.Add(a);
                 }
-                else if (electCount == 1)
+                else if (electCount == 2)
                 {
                     var a = Instantiate(elect2, enemyrightLeg.transform.position, Quaternion.identity);
                     compositionObj.Add(a);
                 }
-                else if (electCount == 2)
+                else if (electCount == 4)
                 {
                     var a = Instantiate(elect3, enemyRbBackpack.transform.position, Quaternion.identity);
                     compositionObj.Add(a);
                 }
-                else if (electCount == 3)
+                else if (electCount == 6)
                 {
                     var a = Instantiate(elect4, enemyRbMain.transform.position, Quaternion.identity);
                     compositionObj.Add(a);
-                }
-                else
-                {
                     electCount = 0;
+                    effectCheak = true;
+                }
+                else 
+                {
+                    
                 }
                 electCount += Time.deltaTime;
-                effectCheak = true;
             }
+            
         }
         else if (enemyHP <= 0)
         {
@@ -312,7 +314,7 @@ public class Enemy : MonoBehaviour
     void Rotation()
     {
         //a.y = this.transform.position.y;
-        Vector3 a = targetpos.transform.position + (target.velocity / 60);
+        Vector3 a = targetpos.transform.position + (target.velocity / 30);
         transform.LookAt(a);
     }
     void cheakPlayer()
@@ -329,7 +331,7 @@ public class Enemy : MonoBehaviour
     }
     public void EffectEnd()
     {
-        Debug.Log("kiteruaaa");
+        //Debug.Log("kiteruaaa");
         effectCheak = false;
     }
 }

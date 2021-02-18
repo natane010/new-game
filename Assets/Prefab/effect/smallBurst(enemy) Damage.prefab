@@ -9614,6 +9614,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smallBurst: {fileID: 8300000, guid: 211963bb1825e5c49a489e96934d3ac9, type: 3}
+  obj: {fileID: 215788795621446854, guid: 7b0f9c3419c9d154d8f93e7e0deb563a, type: 3}
 --- !u!1 &6696201607813923734
 GameObject:
   m_ObjectHideFlags: 0
