@@ -165,7 +165,7 @@ public class Enemy : MonoBehaviour
             var b = Instantiate(explosion, enemyRbBackpack.transform.position, Quaternion.identity);
             compositionObj.Add(a);
             compositionObj.Add(b);
-            gameController.EnemyDead();
+            gameController.EnemyDead(this.gameObject);
             this.gameObject.SetActive(false);
         }
         cheakPlayer();
@@ -312,7 +312,7 @@ public class Enemy : MonoBehaviour
     void Rotation()
     {
         //a.y = this.transform.position.y;
-        Vector3 a = targetpos.transform.position + target.velocity;
+        Vector3 a = targetpos.transform.position + (target.velocity / 60);
         transform.LookAt(a);
     }
     void cheakPlayer()

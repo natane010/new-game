@@ -16,9 +16,19 @@ public class GameController : MonoBehaviour
     Vector3 startEnemyPos;
     public bool isEnemy;
     float count;
+    GameObject whichGameObject;
+    //List<GameObject> enemyList = new List<GameObject>();
+    GameObject[] enemyObjList = new GameObject[3];
+    Enemy[] enemyScList = new Enemy[3];
+    AudioSource[] enemySoundList;
     // Start is called before the first frame update
     void Start()
     {
+        for (int i = 0; i < enemyObjList.Length; i++)
+        {
+            enemyObjList[i] = GameObject.Find($"Enemy ({i})");
+            enemyScList[i] = enemyObjList[i].GetComponent<Enemy>();
+        }
         playerObj = GameObject.Find("Player");
         enemyObj = GameObject.Find("Enemy");
         playerBackPack = GameObject.Find("Backpack");
@@ -59,8 +69,15 @@ public class GameController : MonoBehaviour
     {
         score += 100;
     }
-    public void EnemyDead()
+    public void EnemyDead(GameObject a)
     {
-        isEnemy = true;
+        GetScore();
+        foreach (var item in enemyObjList)
+        {
+            if (item == a)
+            {
+                whichGameObject = a;
+            }
+        }
     }
 }
