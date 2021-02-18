@@ -20,7 +20,10 @@ public class GameController : MonoBehaviour
     //List<GameObject> enemyList = new List<GameObject>();
     GameObject[] enemyObjList = new GameObject[3];
     Enemy[] enemyScList = new Enemy[3];
-    AudioSource[] enemySoundList;
+    AudioSource[] enemySoundList = new AudioSource[3];
+    Vector3[] enemyStartPos = new Vector3[3];
+    int enemyNum;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +31,8 @@ public class GameController : MonoBehaviour
         {
             enemyObjList[i] = GameObject.Find($"Enemy ({i})");
             enemyScList[i] = enemyObjList[i].GetComponent<Enemy>();
+            enemySoundList[i] = enemyObjList[i].GetComponent<AudioSource>();
+            enemyStartPos[i] = enemyObjList[i].transform.position;
         }
         playerObj = GameObject.Find("Player");
         enemyObj = GameObject.Find("Enemy");
@@ -51,17 +56,25 @@ public class GameController : MonoBehaviour
             if (count > 5.00f)
             {
                 isEnemy = false;
-                enemy.enemyHP = enemy.enemyMaxHp;
-                enemyObj.transform.position = startEnemyPos;
-                foreach (var item in enemy.compositionObj)
+                enemyScList[enemyNum].enemyHP = enemyScList[enemyNum].enemyMaxHp;
+                whichGameObject.transform.position = enemyStartPos[enemyNum];
+                foreach (var item in enemyScList[enemyNum].compositionObj)
                 {
                     Destroy(item);
                 }
-                enemySound.enabled = false;
-                enemy.compositionObj = new List<GameObject>();
-                enemyObj.SetActive(true);
+                enemySoundList[enemyNum].enabled = false;
+                enemyScList[enemyNum].compositionObj = new List<GameObject>();
+                whichGameObject.SetActive(true);
                 count = 0;
-                enemySound.enabled = true;
+                enemySoundList[enemyNum].enabled = true;
+                foreach (var item in enemyObjList)
+                {
+                    if (item.activeSelf == false)
+                    {
+                        isEnemy = true;
+                        break;
+                    }
+                }
             }
         }
     }
@@ -72,12 +85,16 @@ public class GameController : MonoBehaviour
     public void EnemyDead(GameObject a)
     {
         GetScore();
+        enemyNum = 0;
         foreach (var item in enemyObjList)
         {
             if (item == a)
             {
                 whichGameObject = a;
+                isEnemy = true;
+                break;
             }
+            enemyNum++;
         }
     }
 }

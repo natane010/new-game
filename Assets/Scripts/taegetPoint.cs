@@ -13,7 +13,7 @@ public class taegetPoint : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        target = GameObject.Find(targetName);
+        //target = GameObject.Find(targetName);
     }
 
     // Update is called once per frame
