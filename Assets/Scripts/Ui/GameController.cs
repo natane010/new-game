@@ -40,6 +40,18 @@ public class GameController : MonoBehaviour
     public static float lastPlayerHP;
     bool errorCheak = false;
 
+    private void Awake()
+    {
+        if (StartButton.difficult)
+        {
+            clearScore = 3000f;
+        }
+        else
+        {
+            clearScore = 8000f;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -69,14 +81,6 @@ public class GameController : MonoBehaviour
             scoreTextClear = clearScoreSc.GetComponent<Text>();
             isEnemy = false;
             count = 0.00f;
-            if (StartButton.difficult)
-            {
-                clearScore = 3000f;
-            }
-            else
-            {
-                clearScore = 8000f;
-            }
             scoreTextClear.text = "クリア目標：ポイント " + clearScore + "達成";
         }
     }

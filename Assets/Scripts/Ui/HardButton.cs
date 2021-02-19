@@ -7,6 +7,7 @@ public class HardButton : MonoBehaviour
 {
     public void OnClickStartButton()
     {
+        StartButton.difficult = false;
         SceneManager.LoadScene("GameScene 1");
     }
 }
