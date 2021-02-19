@@ -42,8 +42,8 @@ public class GaugeController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        nowHp = playerSc.playerHP * 1.000f;
-        maxHp = playerSc.maxPlayerHp * 1.000f;
+        nowHp = playerSc.playerHP * 1.0f;
+        maxHp = playerSc.maxPlayerHp * 1.0f;
         currentHp = nowHp / maxHp * 1.000f;
         if (imageHp.fillAmount > 0.5f)
         {
@@ -85,6 +85,10 @@ public class GaugeController : MonoBehaviour
         if (ratioHp >= 0 && currentHp < ratioHp)
         {
             ratioHp -= 0.1f * Time.deltaTime;
+        }
+        else if (currentHp > ratioHp)
+        {
+            ratioHp += 0.1f * Time.deltaTime;
         }
         imageHp.fillAmount = ratioHp;
         if (imageHp.fillAmount <= 0)
