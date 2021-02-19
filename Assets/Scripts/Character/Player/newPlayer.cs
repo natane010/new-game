@@ -81,13 +81,19 @@ public class newPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (rbBackpack.transform.position.y >= 600)
+        {
+            rbBackpack.velocity = Vector3.zero;
+            rbBackpack.velocity = Vector3.down * jumpPow / 2;
+            return;
+        }
         speed = player.velocity.magnitude;
         speedY = player.velocity.y;
         velocity = Vector3.zero;
         if (Input.GetKey(KeyCode.W))
         {
             velocity.z += 10.0f;
-            if (Input.GetKey(KeyCode.LeftShift) && boostGauge>= 0)
+            if (Input.GetKey(KeyCode.LeftShift) && boostGauge >= 0)
             {
                 velocity.z *= 5;
                 boostGauge -= 1;
@@ -135,7 +141,7 @@ public class newPlayer : MonoBehaviour
         {
             glitch.enabled = !glitch.enabled;
         }
-        else 
+        else
         {
             glitch.enabled = false;
         }
@@ -165,7 +171,22 @@ public class newPlayer : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.Space) && speed <= limitSpeed && boostGauge >= 0)
         {
-            move.Jump(rbBackpack, rbLegRight, rbLegLeft, jumpPow, isGround);
+            float magnification = 1;
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                magnification *= 3;
+            }
+            move.Jump(rbBackpack, rbLegRight, rbLegLeft, jumpPow * magnification, isGround);
+            boostGauge -= 5;
+        }
+        if (Input.GetKey(KeyCode.X) && speed <= limitSpeed && boostGauge >= 0)
+        {
+            float magnification = 1;
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                magnification *= 3;
+            }
+            move.Down(rbBackpack, rbLegRight, rbLegLeft, jumpPow * magnification, isGround);
             boostGauge -= 5;
         }
         transform.rotation = Quaternion.LookRotation(cameraForward);
@@ -175,7 +196,7 @@ public class newPlayer : MonoBehaviour
             audiobiribiri.PlayOneShot(biribiri);
         }
     }
-   public void Damege()
+    public void Damege()
     {
         float damegetime = 0.0f;
         shake.Shake(0.1f, 0.1f);

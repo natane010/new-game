@@ -6,9 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
-    
+    [SerializeField]
+    float clearScore;
     [SerializeField]
     GameObject playerObj;
+    newPlayer player;
     public GameObject playerBackPack;
     public Rigidbody playerBackPackRb;
     [SerializeField]
@@ -28,10 +30,14 @@ public class GameController : MonoBehaviour
     float lastScore;
     [SerializeField]
     GameObject scoreObj;
+    [SerializeField]
+    GameObject clearScoreSc;
     Text scoreText;
+    Text scoreTextClear;
     public static float time;
     public static float score;
     public static bool result;
+    public static float lastPlayerHP;
     bool errorCheak = false;
 
     // Start is called before the first frame update
@@ -52,6 +58,7 @@ public class GameController : MonoBehaviour
             enemyObj = GameObject.Find("Enemy");
             playerBackPack = GameObject.Find("Backpack");
             playerBackPackRb = playerBackPack.GetComponent<Rigidbody>();
+            player = playerObj.GetComponent<newPlayer>();
             //enemySound = enemyObj.GetComponent<AudioSource>();
             //enemy = enemyObj.GetComponent<Enemy>();
             enemy.target = playerBackPackRb;
@@ -59,26 +66,41 @@ public class GameController : MonoBehaviour
             score = 0;
             lastScore = score;
             scoreText = scoreObj.GetComponent<Text>();
+            scoreTextClear = clearScoreSc.GetComponent<Text>();
             isEnemy = false;
             count = 0.00f;
+            if (StartButton.difficult)
+            {
+                clearScore = 3000f;
+            }
+            else
+            {
+                clearScore = 8000f;
+            }
+            scoreTextClear.text = "クリア目標：ポイント " + clearScore + "達成";
         }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            score += 1000;
+        }
         if (errorCheak)
         {
             time += Time.deltaTime;
             if (score != lastScore)
             {
-                scoreText.text = "Score:" + " " + score;
+                scoreText.text = "ポイント:" + " " + score;
                 lastScore = score;
             }
-            if (score >= 3000)
+            if (score >= clearScore)
             {
                 result = true;
                 //シーン遷移
+                lastPlayerHP = player.playerHP;
                 Invoke("SceneMove", 1.5f);
             }
 

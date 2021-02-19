@@ -40,4 +40,8 @@ public class Move : MonoBehaviour
             //rbLegLeft.velocity += Vector3.up * jumpPow * Time.deltaTime;
         }
     }
+    public void Down(Rigidbody rbBackpack, Rigidbody rbLegRight, Rigidbody rbLegLeft, float jumpPow, bool isGround)
+    {
+        rbBackpack.velocity += Vector3.down * jumpPow * Time.deltaTime;
+    }
 }

@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class StartButton : MonoBehaviour
 {
+    public static bool difficult = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +20,7 @@ public class StartButton : MonoBehaviour
     }
     public void OnClickStartButton()
     {
+        difficult = true;
         SceneManager.LoadScene("GameScene");
     }
 }

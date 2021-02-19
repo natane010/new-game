@@ -228,7 +228,14 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                fire = false;
+                if (StartButton.difficult)
+                {
+                    fire = false;
+                }
+                else
+                {
+                    fire = true;
+                }
             }
             if (isGround)
             {
@@ -275,6 +282,13 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Attack();
+        if (enemyRbBackpack.transform.position.y >= 600)
+        {
+            enemyRbBackpack.velocity = Vector3.zero;
+            enemyRbBackpack.velocity = Vector3.down * jumpPow / 2;
+            return;
+        }
         Vector3 moveRbSpeed = enemyRbMain.velocity;
         if (moveRbSpeed.magnitude >= limitSpeed)
         {
@@ -287,13 +301,11 @@ public class Enemy : MonoBehaviour
             enemyRbBackpack.velocity += Vector3.up * jumpPow * Time.deltaTime;
         }
         count++;
-        move.MoveRb(enemyRbMain, enemyRbBackpack, velocity, isGround, limitSpeed);
-        Attack();
-        
+        move.MoveRb(enemyRbMain, enemyRbBackpack, velocity, isGround, limitSpeed);        
     }
     void Attack()
     {
-        if (fire == true && count >= 20.0f)
+        if (fire == true && count >= 15.0f)
         {
             Vector3 placePos = gun.transform.position;
             
@@ -314,7 +326,7 @@ public class Enemy : MonoBehaviour
     void Rotation()
     {
         //a.y = this.transform.position.y;
-        Vector3 a = targetpos.transform.position + (target.velocity / 30);
+        Vector3 a = targetpos.transform.position + (target.velocity / 5);
         transform.LookAt(a);
     }
     void cheakPlayer()

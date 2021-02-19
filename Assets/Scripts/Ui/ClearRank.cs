@@ -18,20 +18,21 @@ public class ClearRank : MonoBehaviour
         nowScore = GameController.score;
         time = GameController.time;
         isClear = GameController.result;
-        score = nowScore / time;
-        if (score < 30 || isClear == false)
+        float Hp = GameController.lastPlayerHP;
+        score = (nowScore * Hp) / time;
+        if (score < 400000 || isClear == false)
         {
             rank = "D";
         }
-        else if (score < 50)
+        else if (score < 600000)
         {
             rank = "C";
         }
-        else if (score < 100)
+        else if (score < 1000000)
         {
             rank = "B";
         }
-        else if (score < 150)
+        else if (score < 1600000)
         {
             rank = "A";
         }
